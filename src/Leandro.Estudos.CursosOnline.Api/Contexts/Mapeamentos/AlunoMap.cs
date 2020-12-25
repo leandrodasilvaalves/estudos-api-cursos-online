@@ -20,6 +20,10 @@ namespace Leandro.Estudos.CursosOnline.Api.Contexts.Mapeamentos
 
         builder.ToTable("Alunos");
 
+        builder          
+          .HasMany(a => a.Cursos)
+          .WithMany(c => c.Alunos)
+          .UsingEntity(ac => ac.ToTable("CursosAlunos"));
     }
   }
 }
