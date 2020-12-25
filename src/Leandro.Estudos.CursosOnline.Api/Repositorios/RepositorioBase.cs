@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Leandro.Estudos.CursosOnline.Api.Repositorios
 {
-  public abstract class RepositorioBase<T> : IRepositorioBase<T> where T : EntidadeBase, new()
+  public abstract class RepositorioBase<T> : IRepositorioBase<T>, IDisposable where T : EntidadeBase, new()
   {
     protected readonly CursoContext _db;
     protected readonly DbSet<T> _dbSet;
@@ -40,7 +40,6 @@ namespace Leandro.Estudos.CursosOnline.Api.Repositorios
     {
       _dbSet.Add(entidade);
       await Salvar();
-
     }
 
     public async Task Editar(T entidade)
@@ -57,6 +56,11 @@ namespace Leandro.Estudos.CursosOnline.Api.Repositorios
     public async Task<int> Salvar()
     {
       return await _db.SaveChangesAsync();
+    }
+
+    public void Dispose()
+    {
+      _db?.Dispose();
     }
   }
 }
