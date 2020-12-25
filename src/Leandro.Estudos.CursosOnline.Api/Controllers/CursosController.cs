@@ -39,22 +39,15 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
     [HttpPost]
     public async Task<ActionResult> Post([FromBody] Curso curso)
     {
-      try
-      {
-          await _servico.Incluir(curso);
-          return Ok(curso);
-      }
-      catch (Exception ex)
-      {
-          return BadRequest(ex.Message);
-      }
+      await _servico.Incluir(curso);
+      return Ok(curso);
     }
 
     [HttpPut("{id:guid}")]
     public async Task<ActionResult> Put(Guid id, [FromBody]Curso curso)
     {
         if(id != curso.Id) 
-            return BadRequest("O id da rota precisa ser igual ao ida da entidade");
+            return BadRequest("O id da rota precisa ser igual ao id do curso");
 
         var cursoBanco = await _repositorio.ObterPorId(id);
         if(cursoBanco == null)
@@ -72,7 +65,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
             return NotFound("Curso não localizado na base dados");
 
         await _servico.Excluir(id);
-        return Ok(curso);
+        return Ok();
     }
   }
 }

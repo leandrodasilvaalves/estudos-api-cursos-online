@@ -5,9 +5,9 @@ namespace Leandro.Estudos.CursosOnline.Api.Entidades
 {
   public class Aluno : EntidadeBase
   {
-    public string Nome { get; private set; }
+    public string Nome { get; set; }
 
     public string Email { get; set; }
-    public IEnumerable<Curso> Cursos { get; set; }
+    public IEnumerable<Curso> Cursos { get; internal set; }
   }
 }
