@@ -8,5 +8,9 @@ namespace Leandro.Estudos.CursosOnline.Api.Entidades
         public string Nome { get; set; }  
 
         public IEnumerable<Aluno> Alunos { get; internal set; }
+
+        public void AtualizarPropriedades(Curso curso){
+          this.Nome = curso.Nome;
+        }
     }
 }

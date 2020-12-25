@@ -9,10 +9,10 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-  public class CursosController : ControllerBase
+  public partial class CursosController : ControllerBase
   {
     private readonly ICursoRepositorio _repositorio;
-    private readonly ICursoServico _servico;
+    private readonly ICursoServico _servico;    
 
     public CursosController(ICursoRepositorio repositorio, ICursoServico servico)
     {
@@ -53,8 +53,9 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
         if(cursoBanco == null)
             return NotFound("Curso não localizado na base dados");
 
-        await _servico.Editar(curso);
-        return Ok(curso);
+        cursoBanco.AtualizarPropriedades(curso);
+        await _servico.Editar(cursoBanco);
+        return Ok(cursoBanco);
     }
 
     [HttpDelete("{id:guid}")]

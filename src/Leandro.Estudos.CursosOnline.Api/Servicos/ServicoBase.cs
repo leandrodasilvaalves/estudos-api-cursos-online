@@ -17,11 +17,18 @@ namespace Leandro.Estudos.CursosOnline.Api.Servicos
 
     public async Task Incluir(T entidade)
     {
+      entidade
+        .GerarNovoId()
+        .Ativar()
+        .DefinirDataCadastro()
+        .DefinirUltimaAtualizacao();
+
       await _repositorio.Incluir(entidade);
     }
 
     public async Task Editar(T entidade)
     {
+      entidade.DefinirUltimaAtualizacao();
       await _repositorio.Editar(entidade);
     }
 

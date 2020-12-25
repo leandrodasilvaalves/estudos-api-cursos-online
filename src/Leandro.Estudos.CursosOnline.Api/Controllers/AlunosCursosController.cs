@@ -10,7 +10,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
   { 
 
     [HttpGet("{id:guid}/cursos")]
-    public async Task<ActionResult<IEnumerable<Aluno>>> GetCursos(Guid id)
+    public async Task<ActionResult<IEnumerable<Aluno>>> Cursos(Guid id)
     {
       var alunos = await _repositorio.ObterAlunoComCursos(id);
       if (alunos == null) return NoContent();
