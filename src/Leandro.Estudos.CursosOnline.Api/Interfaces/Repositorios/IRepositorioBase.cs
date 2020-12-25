@@ -4,9 +4,9 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Leandro.Estudos.CursosOnline.Api.Entidades;
 
-namespace Leandro.Estudos.CursosOnline.Api.Interfaces
+namespace Leandro.Estudos.CursosOnline.Api.Interfaces.Repositorios
 {
-  public interface IRepositorioBase<T> where T : EntidadeBase
+  public interface IRepositorioBase<T>  where T : EntidadeBase
   {
     Task<IEnumerable<T>> Listar();
     Task<T> ObterPorId(Guid id);

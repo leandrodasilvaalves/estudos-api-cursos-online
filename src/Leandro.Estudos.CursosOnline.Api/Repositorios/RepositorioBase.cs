@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Leandro.Estudos.CursosOnline.Api.Contexts;
 using Leandro.Estudos.CursosOnline.Api.Entidades;
-using Leandro.Estudos.CursosOnline.Api.Interfaces;
+using Leandro.Estudos.CursosOnline.Api.Interfaces.Repositorios;
 using Microsoft.EntityFrameworkCore;
 
 namespace Leandro.Estudos.CursosOnline.Api.Repositorios

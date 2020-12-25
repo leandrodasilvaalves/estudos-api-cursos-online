@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Leandro.Estudos.CursosOnline.Api.Contexts;
+using Leandro.Estudos.CursosOnline.Api.Interfaces.Repositorios;
+using Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos;
+using Leandro.Estudos.CursosOnline.Api.Repositorios;
+using Leandro.Estudos.CursosOnline.Api.Servicos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,6 +43,14 @@ namespace Leandro.Estudos.CursosOnline.Api
             });
 
             services.AddScoped<CursoContext>();
+            
+            services.AddScoped(typeof(IRepositorioBase<>), typeof(RepositorioBase<>));
+            services.AddScoped<IAlunoRepositorio, AlunoRepositorio>();
+            services.AddScoped<ICursoRepositorio, CursoRepositorio>();
+
+            services.AddScoped(typeof(IServicoBase<>), typeof(ServicoBase<>));
+            services.AddScoped<IAlunoServico, AlunoServico>();
+            services.AddScoped<ICursoServico, CursoServico>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
