@@ -42,13 +42,13 @@ namespace Leandro.Estudos.CursosOnline.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Leandro.Estudos.CursosOnline.Api", Version = "v1" });
             });
 
-            services.AddScoped<CursoContext>();
-            
-            services.AddScoped(typeof(IRepositorioBase<>), typeof(RepositorioBase<>));
+            services.AddScoped(typeof(CursoContext));
+
+            //services.AddScoped(typeof(IRepositorioBase<>), typeof(RepositorioBase<>));
             services.AddScoped<IAlunoRepositorio, AlunoRepositorio>();
             services.AddScoped<ICursoRepositorio, CursoRepositorio>();
 
-            services.AddScoped(typeof(IServicoBase<>), typeof(ServicoBase<>));
+            //services.AddScoped(typeof(IServicoBase<>), typeof(ServicoBase<>));
             services.AddScoped<IAlunoServico, AlunoServico>();
             services.AddScoped<ICursoServico, CursoServico>();
         }

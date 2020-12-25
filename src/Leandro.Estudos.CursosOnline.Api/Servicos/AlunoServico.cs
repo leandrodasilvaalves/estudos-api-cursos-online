@@ -1,3 +1,4 @@
+using System;
 using Leandro.Estudos.CursosOnline.Api.Entidades;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Repositorios;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos;
