@@ -11,7 +11,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Entidades
             UltimaAtualizacao = UltimaAtualizacao == DateTime.MinValue ? DateTime.Now : UltimaAtualizacao;
             Ativo = true;
         }
-        public Guid Id { get; internal set; }
+        public Guid Id { get; set; }
         public DateTime DataCadastro { get; private set; }
         public DateTime UltimaAtualizacao { get; private set; }
         public bool Ativo { get; private set; }

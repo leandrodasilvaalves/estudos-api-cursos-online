@@ -28,7 +28,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Repositorios
 
     public async Task<T> ObterPorId(Guid id)
     {
-      return await _dbSet.FindAsync(id);
+      return await _dbSet.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
     }
 
     public async Task<IEnumerable<T>> Buscar(Expression<Func<T, bool>> predicate)

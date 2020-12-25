@@ -10,15 +10,17 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-  public class AlunosController : ControllerBase
+  public partial class AlunosController : ControllerBase
   {
       private readonly IAlunoRepositorio _repositorio;
       private readonly IAlunoServico _servico;
+      private readonly ICursoRepositorio _cursoRepositorio;
 
-    public AlunosController(IAlunoRepositorio repositorio, IAlunoServico servico)
+    public AlunosController(IAlunoRepositorio repositorio, IAlunoServico servico, ICursoRepositorio cursoRepositorio)
     {
       _repositorio = repositorio;
       _servico = servico;
+      _cursoRepositorio = cursoRepositorio;
     }
 
     [HttpGet]
