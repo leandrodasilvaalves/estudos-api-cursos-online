@@ -34,7 +34,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
     {
       var emailJaCadastrado = await _userManager.FindByEmailAsync(model.Email);
       if (emailJaCadastrado is not null)
-        return BadRequest(new { mensagem = "Já existe um usuário cadastrado com este e-mail" });
+        return BadRequest(new BadRequestResponse("Já existe um usuário cadastrado com este e-mail"));
 
       var usuario = new AppUser { UserName = model.Email, Email = model.Email };
       var resultado = await _userManager.CreateAsync(usuario, model.Senha);
@@ -45,7 +45,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
         return Ok(new OkResponse("Usuário registrado com sucesso", token: await _jwtServico.GerarToken(model.Email)));
       }
 
-      return BadRequest("Não foi possível registrar o usuário");
+      return BadRequest(new BadRequestResponse("Não foi possível registrar o usuário"));
     }
 
     [AllowAnonymous]
@@ -56,7 +56,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
       if (resultado.Succeeded)
         return Ok(new OkResponse("Usuário logado com sucesso", token: await _jwtServico.GerarToken(model.Email)));
 
-      return NotFound("Usuário ou senha inválidos");
+      return NotFound(new NotFoundResponse("Usuário ou senha inválidos"));
     }
   }
 }

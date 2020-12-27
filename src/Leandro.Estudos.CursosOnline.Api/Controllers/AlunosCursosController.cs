@@ -23,11 +23,11 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
     {
       var aluno = await _repositorio.ObterPorId(id);
       if (aluno == null)
-        return NotFound("Aluno não localizado na base de dados");
+        return NotFound(new NotFoundResponse("Aluno não localizado na base de dados"));
 
       var curso = await _cursoRepositorio.ObterPorId(cursoId);
       if (curso == null)
-        return NotFound("Curso não localizado na base dados");
+        return NotFound(new NotFoundResponse("Curso não localizado na base dados"));
 
       aluno.Matricular(curso);
       await _servico.Editar(aluno);

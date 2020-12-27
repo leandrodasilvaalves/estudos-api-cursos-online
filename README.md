@@ -1,11 +1,11 @@
 # Itens a fazer
 - [x] Incluir JWT
 - [x] Refatorar servico JWT
-- [] Padronizar responses
+- [x] Padronizar responses
   - [x] OkReponses
-  - [] BadRequestResponses
-  - [] NotFoundResonses
-  - [] NoContentResponses
+  - [x] BadRequestResponses
+  - [x] NotFoundResonses
+- [] Extrair Identity para servico
 - [] Fechar endpoints protegidos
 - [] Incluir validações
 - [] Incluir logs e monitoramento

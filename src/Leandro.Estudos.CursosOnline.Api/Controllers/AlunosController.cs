@@ -52,11 +52,11 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
     public async Task<ActionResult> Put(Guid id, [FromBody] Aluno aluno)
     {
       if (id != aluno.Id)
-        return BadRequest("O id da rota precisa ser igual ao id do aluno");
+        return BadRequest(new BadRequestResponse("O id da rota precisa ser igual ao id do aluno"));
 
       var alunoBanco = await _repositorio.ObterPorId(id);
       if (alunoBanco == null)
-        return NotFound("Aluno não localizado na base de dados");
+        return NotFound(new NotFoundResponse("Aluno não localizado na base de dados"));
 
       await _servico.Editar(aluno);
       return Ok(new OkResponse("Aluno atualizado com sucesso", aluno));
@@ -67,7 +67,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
     {
       var aluno = await _repositorio.ObterPorId(id);
       if (aluno == null)
-        return NotFound("Aluno não localizado na base de dados");
+        return NotFound(new NotFoundResponse("Aluno não localizado na base de dados"));
 
       await _servico.Excluir(id);
       return Ok(new OkResponse("Aluno excluído com sucesso"));

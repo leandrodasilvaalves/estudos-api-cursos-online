@@ -12,7 +12,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
     public async Task<ActionResult<Curso>> Alunos(Guid id)
     {
       var curso = await _repositorio.ObterCursoComAlunos(id);
-      if (curso == null) return NotFound("Curso não localizado na base de dados");
+      if (curso == null) return NotFound(new NotFoundResponse("Curso não localizado na base de dados"));
       return Ok(new OkResponse(curso));
     }
   }

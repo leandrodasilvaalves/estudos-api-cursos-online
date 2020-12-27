@@ -28,4 +28,16 @@ namespace Leandro.Estudos.CursosOnline.Api.Models
 
     public string Token { get; private set; }
   }
+
+  public class BadRequestResponse : ResponseModel
+  {
+    public BadRequestResponse(string mensagem)
+      : base(mensagem, dados: null, sucesso: false, statusCode: 400) { }
+  }
+
+  public class NotFoundResponse : ResponseModel
+  {
+    public NotFoundResponse(string mensagem)
+      : base(mensagem, dados: null, sucesso: false, statusCode: 404) { }
+  }
 }
