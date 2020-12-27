@@ -5,12 +5,12 @@
   - [x] OkReponses
   - [x] BadRequestResponses
   - [x] NotFoundResonses
+- [x] Incluir validações
 - [] Extrair Identity para servico
+  - [] Endpoint para troca de senha
+  - [] Endpoint para gerenciar claims
 - [] Fechar endpoints protegidos
-- [] Incluir validações
 - [] Incluir logs e monitoramento
 - [] Versionar API
 - [] Melhorar documentação via Swagger
-- [] Endpoint para troca de senha
-- [] Endpoint para gerenciar claims
-- []
+- [] Exception Middleware

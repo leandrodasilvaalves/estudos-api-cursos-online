@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Leandro.Estudos.CursosOnline.Api.Entidades;
+using Leandro.Estudos.CursosOnline.Api.Interfaces;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Repositorios;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos;
 using Leandro.Estudos.CursosOnline.Api.Models;
@@ -14,11 +15,15 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
   {
     private readonly ICursoRepositorio _repositorio;
     private readonly ICursoServico _servico;
+    private readonly INotificador _notificador;
 
-    public CursosController(ICursoRepositorio repositorio, ICursoServico servico)
+    public CursosController(ICursoRepositorio repositorio,
+                            ICursoServico servico,
+                            INotificador notificador)
     {
       _repositorio = repositorio;
       _servico = servico;
+      _notificador = notificador;
     }
 
     [HttpGet]
@@ -40,8 +45,11 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
     [HttpPost]
     public async Task<ActionResult> Post([FromBody] Curso curso)
     {
-      await _servico.Incluir(curso);
-      return Ok(new OkResponse("Curso cadastrado com sucesso", curso));
+      if (await _servico.Incluir(curso))
+        return Ok(new OkResponse("Curso cadastrado com sucesso", curso));
+
+      var mensagemErro = "Ocorreram um ou mais erros ao tentar cadastrar o curso";
+      return BadRequest(new BadRequestResponse(mensagemErro, _notificador.ObterNotificacoes(), curso));
     }
 
     [HttpPut("{id:guid}")]
@@ -55,8 +63,11 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
         return NotFound(new NotFoundResponse("Curso não localizado na base dados"));
 
       cursoBanco.AtualizarPropriedades(curso);
-      await _servico.Editar(cursoBanco);
-      return Ok(new OkResponse("Curso atualizado com sucesso", cursoBanco));
+      if (await _servico.Editar(cursoBanco))
+        return Ok(new OkResponse("Curso atualizado com sucesso", cursoBanco));
+
+      var mensagemErro = "Ocorreram um ou mais erros ao tentar editar o curso";
+      return BadRequest(new BadRequestResponse(mensagemErro, _notificador.ObterNotificacoes(), curso));
     }
 
     [HttpDelete("{id:guid}")]

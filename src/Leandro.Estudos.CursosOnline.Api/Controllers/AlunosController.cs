@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Leandro.Estudos.CursosOnline.Api.Entidades;
+using Leandro.Estudos.CursosOnline.Api.Interfaces;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Repositorios;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos;
 using Leandro.Estudos.CursosOnline.Api.Models;
@@ -16,12 +17,17 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
     private readonly IAlunoRepositorio _repositorio;
     private readonly IAlunoServico _servico;
     private readonly ICursoRepositorio _cursoRepositorio;
+    private readonly INotificador _notificador;
 
-    public AlunosController(IAlunoRepositorio repositorio, IAlunoServico servico, ICursoRepositorio cursoRepositorio)
+    public AlunosController(IAlunoRepositorio repositorio,
+                            IAlunoServico servico,
+                            ICursoRepositorio cursoRepositorio,
+                            INotificador notificador)
     {
       _repositorio = repositorio;
       _servico = servico;
       _cursoRepositorio = cursoRepositorio;
+      _notificador = notificador;
     }
 
     [HttpGet]
@@ -44,8 +50,11 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
     [HttpPost]
     public async Task<ActionResult> Post([FromBody] Aluno aluno)
     {
-      await _servico.Incluir(aluno);
-      return Ok(new OkResponse("Aluno cadastrado com sucesso", aluno));
+      if (await _servico.Incluir(aluno))
+        return Ok(new OkResponse("Aluno cadastrado com sucesso", aluno));
+
+      var mensagemErro = "Ocorreram um ou mais erros ao tentar cadastrar o aluno";
+      return BadRequest(new BadRequestResponse(mensagemErro, _notificador.ObterNotificacoes(), aluno));
     }
 
     [HttpPut("{id:guid}")]
@@ -58,8 +67,11 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
       if (alunoBanco == null)
         return NotFound(new NotFoundResponse("Aluno não localizado na base de dados"));
 
-      await _servico.Editar(aluno);
-      return Ok(new OkResponse("Aluno atualizado com sucesso", aluno));
+      if (await _servico.Editar(aluno))
+        return Ok(new OkResponse("Aluno atualizado com sucesso", aluno));
+
+      var mensagemErro = "Ocorreram um ou mais erros ao tentar editar o aluno";
+      return BadRequest(new BadRequestResponse(mensagemErro, _notificador.ObterNotificacoes(), aluno));
     }
 
     [HttpDelete("{id:guid}")]

@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
+using Leandro.Estudos.CursosOnline.Api.Notificacoes;
+
 namespace Leandro.Estudos.CursosOnline.Api.Models
 {
   public abstract class ResponseModel
@@ -33,6 +37,11 @@ namespace Leandro.Estudos.CursosOnline.Api.Models
   {
     public BadRequestResponse(string mensagem)
       : base(mensagem, dados: null, sucesso: false, statusCode: 400) { }
+    public BadRequestResponse(string mensagem, List<Notificacao> erros, object dados)
+      : base(mensagem, dados, sucesso: false, statusCode: 400)
+        => Erros = (from erro in erros select erro.Mensagem).ToList();
+
+    public List<string> Erros { get; private set; }
   }
 
   public class NotFoundResponse : ResponseModel
