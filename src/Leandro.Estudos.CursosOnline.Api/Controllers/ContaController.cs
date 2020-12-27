@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Leandro.Estudos.CursosOnline.Api.Entidades;
+using Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,15 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
   {
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
+    private readonly IJwtServico _jwtServico;
 
-    public ContaController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+    public ContaController(UserManager<AppUser> userManager,
+                           SignInManager<AppUser> signInManager,
+                           IJwtServico jwtServico)
     {
       _userManager = userManager;
       _signInManager = signInManager;
+      _jwtServico = jwtServico;
     }
 
     [AllowAnonymous]
@@ -43,12 +48,12 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
     }
 
     [AllowAnonymous]
-    [HttpPost("logar")]
+    [HttpPost("entrar")]
     public async Task<ActionResult> Logar([FromBody] LoginModel model)
     {
       var resultado = await _signInManager.PasswordSignInAsync(model.Email, model.Senha, isPersistent: true, lockoutOnFailure: true);
       if (resultado.Succeeded)
-        return Ok("Usuário logado com sucesso");
+        return Ok(new { mensagem = "Usuário logado com sucesso", token = await _jwtServico.GerarToken(model.Email) });
 
       return NotFound("Usuário ou senha inválidos");
     }
