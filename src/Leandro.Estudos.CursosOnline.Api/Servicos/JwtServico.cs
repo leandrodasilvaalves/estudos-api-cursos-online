@@ -25,6 +25,24 @@ namespace Leandro.Estudos.CursosOnline.Api.Servicos
     }
     public async Task<string> GerarToken(string email)
     {
+      var tokenHandler = new JwtSecurityTokenHandler();
+      var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
+      {
+        Issuer = _settings.Emissor,
+        Audience = _settings.ValidoEm,
+        Subject = await ObterClaimsAsync(email),
+        Expires = DateTime.UtcNow.AddHours(_settings.ExpiracaoHoras),
+        SigningCredentials = new SigningCredentials(
+            new SymmetricSecurityKey(_settings.EncodeSecret),
+                                     SecurityAlgorithms.HmacSha256Signature),
+      });
+
+      var encodedToken = tokenHandler.WriteToken(token);
+      return encodedToken;
+    }
+
+    private async Task<ClaimsIdentity> ObterClaimsAsync(string email)
+    {
       var usuario = await _userManager.FindByEmailAsync(email);
       var claims = await _userManager.GetClaimsAsync(usuario);
 
@@ -36,20 +54,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Servicos
 
       var identityClaims = new ClaimsIdentity();
       identityClaims.AddClaims(claims);
-
-      var tokenHandler = new JwtSecurityTokenHandler();
-      var key = Encoding.ASCII.GetBytes(_settings.Secret);
-      var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
-      {
-        Issuer = _settings.Emissor,
-        Audience = _settings.ValidoEm,
-        Subject = identityClaims,
-        Expires = DateTime.UtcNow.AddHours(_settings.ExpiracaoHoras),
-        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-      });
-
-      var encodedToken = tokenHandler.WriteToken(token);
-      return encodedToken;
+      return identityClaims;
     }
   }
 }

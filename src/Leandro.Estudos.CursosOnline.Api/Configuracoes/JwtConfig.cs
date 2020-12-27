@@ -14,7 +14,6 @@ namespace Leandro.Estudos.CursosOnline.Api.Configuracoes
       services.Configure<JwtSettings>(settingSection);
 
       var settings = settingSection.Get<JwtSettings>();
-      var key = Encoding.ASCII.GetBytes(settings.Secret);
 
       services.AddAuthentication(x =>
       {
@@ -27,7 +26,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Configuracoes
         x.TokenValidationParameters = new TokenValidationParameters
         {
           ValidateIssuerSigningKey = true,
-          IssuerSigningKey = new SymmetricSecurityKey(key),
+          IssuerSigningKey = new SymmetricSecurityKey(settings.EncodeSecret),
           ValidateIssuer = true,
           ValidateAudience = true,
           ValidAudience = settings.ValidoEm,
@@ -45,5 +44,6 @@ namespace Leandro.Estudos.CursosOnline.Api.Configuracoes
     public int ExpiracaoHoras { get; set; }
     public string Emissor { get; set; }
     public string ValidoEm { get; set; }
+    public byte[] EncodeSecret { get => Encoding.ASCII.GetBytes(Secret); }
   }
 }
