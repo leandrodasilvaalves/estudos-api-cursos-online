@@ -2,6 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Leandro.Estudos.CursosOnline.Api.Entidades;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos;
+using Leandro.Estudos.CursosOnline.Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -41,7 +42,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
       if (resultado.Succeeded)
       {
         await _signInManager.PasswordSignInAsync(model.Email, model.Senha, isPersistent: false, lockoutOnFailure: true);
-        return Ok("Usuário registrado com sucesso");
+        return Ok(new OkResponse("Usuário registrado com sucesso", token: await _jwtServico.GerarToken(model.Email)));
       }
 
       return BadRequest("Não foi possível registrar o usuário");
@@ -53,7 +54,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
     {
       var resultado = await _signInManager.PasswordSignInAsync(model.Email, model.Senha, isPersistent: true, lockoutOnFailure: true);
       if (resultado.Succeeded)
-        return Ok(new { mensagem = "Usuário logado com sucesso", token = await _jwtServico.GerarToken(model.Email) });
+        return Ok(new OkResponse("Usuário logado com sucesso", token: await _jwtServico.GerarToken(model.Email)));
 
       return NotFound("Usuário ou senha inválidos");
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Leandro.Estudos.CursosOnline.Api.Entidades;
+using Leandro.Estudos.CursosOnline.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Leandro.Estudos.CursosOnline.Api.Controllers
@@ -12,7 +13,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
     {
       var curso = await _repositorio.ObterCursoComAlunos(id);
       if (curso == null) return NotFound("Curso não localizado na base de dados");
-      return Ok(curso);
+      return Ok(new OkResponse(curso));
     }
   }
 }

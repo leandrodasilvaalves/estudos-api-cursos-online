@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Leandro.Estudos.CursosOnline.Api.Entidades;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Repositorios;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos;
+using Leandro.Estudos.CursosOnline.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Leandro.Estudos.CursosOnline.Api.Controllers
@@ -12,7 +13,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
   public partial class CursosController : ControllerBase
   {
     private readonly ICursoRepositorio _repositorio;
-    private readonly ICursoServico _servico;    
+    private readonly ICursoServico _servico;
 
     public CursosController(ICursoRepositorio repositorio, ICursoServico servico)
     {
@@ -23,9 +24,9 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
     [HttpGet]
     public async Task<ActionResult> Get()
     {
-      var cursos = _repositorio.Listar();
+      var cursos = await _repositorio.Listar();
       if (cursos == null) return NoContent();
-      return Ok(await cursos);
+      return Ok(new OkResponse(cursos));
     }
 
     [HttpGet("{id:guid}")]
@@ -33,40 +34,40 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
     {
       var curso = await _repositorio.ObterPorId(id);
       if (curso == null) return NoContent();
-      return Ok(curso);
+      return Ok(new OkResponse(curso));
     }
 
     [HttpPost]
     public async Task<ActionResult> Post([FromBody] Curso curso)
     {
       await _servico.Incluir(curso);
-      return Ok(curso);
+      return Ok(new OkResponse("Curso cadastrado com sucesso", curso));
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<ActionResult> Put(Guid id, [FromBody]Curso curso)
+    public async Task<ActionResult> Put(Guid id, [FromBody] Curso curso)
     {
-        if(id != curso.Id) 
-            return BadRequest("O id da rota precisa ser igual ao id do curso");
+      if (id != curso.Id)
+        return BadRequest("O id da rota precisa ser igual ao id do curso");
 
-        var cursoBanco = await _repositorio.ObterPorId(id);
-        if(cursoBanco == null)
-            return NotFound("Curso não localizado na base dados");
+      var cursoBanco = await _repositorio.ObterPorId(id);
+      if (cursoBanco == null)
+        return NotFound("Curso não localizado na base dados");
 
-        cursoBanco.AtualizarPropriedades(curso);
-        await _servico.Editar(cursoBanco);
-        return Ok(cursoBanco);
+      cursoBanco.AtualizarPropriedades(curso);
+      await _servico.Editar(cursoBanco);
+      return Ok(new OkResponse("Curso atualizado com sucesso", cursoBanco));
     }
 
     [HttpDelete("{id:guid}")]
     public async Task<ActionResult> Delete(Guid id)
     {
-        var curso = await _repositorio.ObterPorId(id);
-        if(curso == null)
-            return NotFound("Curso não localizado na base dados");
+      var curso = await _repositorio.ObterPorId(id);
+      if (curso == null)
+        return NotFound("Curso não localizado na base dados");
 
-        await _servico.Excluir(id);
-        return Ok();
+      await _servico.Excluir(id);
+      return Ok(new OkResponse("Curso excluído com sucesso"));
     }
   }
 }

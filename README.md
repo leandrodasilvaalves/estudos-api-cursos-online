@@ -2,8 +2,15 @@
 - [x] Incluir JWT
 - [x] Refatorar servico JWT
 - [] Padronizar responses
+  - [x] OkReponses
+  - [] BadRequestResponses
+  - [] NotFoundResonses
+  - [] NoContentResponses
+- [] Fechar endpoints protegidos
 - [] Incluir validações
 - [] Incluir logs e monitoramento
 - [] Versionar API
 - [] Melhorar documentação via Swagger
-- [] 
+- [] Endpoint para troca de senha
+- [] Endpoint para gerenciar claims
+- []
