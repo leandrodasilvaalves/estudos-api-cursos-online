@@ -12,9 +12,10 @@
 - [x] Fechar endpoints protegidos
 - [x] Utilizar claims nos endpoints 
 - [x] Versionar API
-- [] Melhorar documentação via Swagger
+- [x] Melhorar documentação via Swagger
 - [] Incluir logs e monitoramento
 - [] Exception Middleware
 - [] Endpoint para troca de senha
 - [] Endpoint para gerenciar claims
 - [] Separar aplicacao em camadas (projetos)
+- [] Melhorar README

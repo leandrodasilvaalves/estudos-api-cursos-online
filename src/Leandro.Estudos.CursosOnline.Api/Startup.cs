@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Leandro.Estudos.CursosOnline.Api.Configuracoes;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 namespace Leandro.Estudos.CursosOnline.Api
 {
@@ -37,12 +38,12 @@ namespace Leandro.Estudos.CursosOnline.Api
       services.AddSwaggerConfig();
     }
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
     {
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
-        app.UseSwaggerConfig();
+        app.UseSwaggerConfig(provider);
       }
 
       app.UseHttpsRedirection();

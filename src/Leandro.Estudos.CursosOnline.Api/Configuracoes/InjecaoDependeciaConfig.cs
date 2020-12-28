@@ -7,6 +7,8 @@ using Leandro.Estudos.CursosOnline.Api.Notificacoes;
 using Leandro.Estudos.CursosOnline.Api.Repositorios;
 using Leandro.Estudos.CursosOnline.Api.Servicos;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Leandro.Estudos.CursosOnline.Api.Configuracoes
 {
@@ -17,8 +19,14 @@ namespace Leandro.Estudos.CursosOnline.Api.Configuracoes
       ConfigurarContextos(services);
       ConfigurarServicos(services);
       ConfigurarRepositorios(services);
-      services.AddScoped<INotificador, Notificador>();
+      ConfiguracoesGerais(services);
       return services;
+    }
+
+    private static void ConfiguracoesGerais(IServiceCollection services)
+    {
+      services.AddScoped<INotificador, Notificador>();
+      services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
     }
 
     private static void ConfigurarContextos(IServiceCollection services)
