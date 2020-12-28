@@ -6,6 +6,8 @@
   - [x] BadRequestResponses
   - [x] NotFoundResonses
 - [x] Incluir validações
+- [x] Refatorar construtores Responses
+- [] Traduzir erros de modelstate
 - [] Extrair Identity para servico
   - [] Endpoint para troca de senha
   - [] Endpoint para gerenciar claims

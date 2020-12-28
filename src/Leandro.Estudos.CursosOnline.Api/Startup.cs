@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Leandro.Estudos.CursosOnline.Api.Configuracoes;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Leandro.Estudos.CursosOnline.Api
 {
@@ -29,6 +30,9 @@ namespace Leandro.Estudos.CursosOnline.Api
 
       services.AddControllers()
               .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+
+      services.Configure<ApiBehaviorOptions>(options
+        => options.SuppressModelStateInvalidFilter = true);
 
       services.AddInjecaoDependenciaConfig();
       services.AddSwaggerConfig();

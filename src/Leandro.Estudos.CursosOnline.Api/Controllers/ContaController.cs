@@ -32,6 +32,9 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
     [HttpPost("registrar")]
     public async Task<ActionResult> Registrar([FromBody] RegistroModel model)
     {
+      if (!ModelState.IsValid)
+        return BadRequest(new BadRequestResponse("Os dados informados são inválidos", ModelState, model));
+
       var emailJaCadastrado = await _userManager.FindByEmailAsync(model.Email);
       if (emailJaCadastrado is not null)
         return BadRequest(new BadRequestResponse("Já existe um usuário cadastrado com este e-mail"));
