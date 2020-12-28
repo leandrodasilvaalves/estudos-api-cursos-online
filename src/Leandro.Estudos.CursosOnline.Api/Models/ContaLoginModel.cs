@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Leandro.Estudos.CursosOnline.Api.Models
 {
-  public class LoginModel
+  public class ContaLoginModel
   {
     [Required]
     [EmailAddress]

@@ -8,9 +8,9 @@
 - [x] Incluir validações
 - [x] Refatorar construtores Responses
 - [x] Traduzir erros de modelstate
-- [] Extrair Identity para servico
-  - [] Endpoint para troca de senha
-  - [] Endpoint para gerenciar claims
+- [x] Extrair Identity para servico
+- [] Endpoint para troca de senha
+- [] Endpoint para gerenciar claims
 - [] Fechar endpoints protegidos
 - [] Incluir logs e monitoramento
 - [] Versionar API

@@ -31,6 +31,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Configuracoes
       services.AddScoped<IAlunoServico, AlunoServico>();
       services.AddScoped<ICursoServico, CursoServico>();
       services.AddScoped<IJwtServico, JwtServico>();
+      services.AddScoped<IContaServico, ContaServico>();
     }
     public static void ConfigurarRepositorios(IServiceCollection services)
     {

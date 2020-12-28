@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Leandro.Estudos.CursosOnline.Api.Entidades;
+using Leandro.Estudos.CursosOnline.Api.Interfaces;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos;
 using Leandro.Estudos.CursosOnline.Api.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -15,48 +16,36 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
   [Route("api")]
   public class ContaController : ControllerBase
   {
-    private readonly UserManager<AppUser> _userManager;
-    private readonly SignInManager<AppUser> _signInManager;
     private readonly IJwtServico _jwtServico;
+    private readonly IContaServico _contaServico;
+    private readonly INotificador _notificador;
 
-    public ContaController(UserManager<AppUser> userManager,
-                           SignInManager<AppUser> signInManager,
-                           IJwtServico jwtServico)
+    public ContaController(IJwtServico jwtServico,
+                           IContaServico contaServico,
+                           INotificador notificador)
     {
-      _userManager = userManager;
-      _signInManager = signInManager;
       _jwtServico = jwtServico;
+      _contaServico = contaServico;
+      _notificador = notificador;
     }
 
     [AllowAnonymous]
     [HttpPost("registrar")]
-    public async Task<ActionResult> Registrar([FromBody] RegistroModel model)
+    public async Task<ActionResult> Registrar([FromBody] ContaRegistroModel model)
     {
-      if (!ModelState.IsValid)
-        return BadRequest(new BadRequestResponse("Os dados informados são inválidos", ModelState, model));
-
-      var emailJaCadastrado = await _userManager.FindByEmailAsync(model.Email);
-      if (emailJaCadastrado is not null)
-        return BadRequest(new BadRequestResponse("Já existe um usuário cadastrado com este e-mail"));
-
-      var usuario = new AppUser { UserName = model.Email, Email = model.Email };
-      var resultado = await _userManager.CreateAsync(usuario, model.Senha);
-
-      if (resultado.Succeeded)
+      if (await _contaServico.Registrar(model))
       {
-        await _signInManager.PasswordSignInAsync(model.Email, model.Senha, isPersistent: false, lockoutOnFailure: true);
+        await _contaServico.Logar(new ContaLoginModel { Email = model.Email, Senha = model.Senha });
         return Ok(new OkResponse("Usuário registrado com sucesso", token: await _jwtServico.GerarToken(model.Email)));
       }
-
-      return BadRequest(new BadRequestResponse("Não foi possível registrar o usuário"));
+      return BadRequest(new BadRequestResponse("Não foi possível registrar o usuário", _notificador.ObterNotificacoes(), model));
     }
 
     [AllowAnonymous]
     [HttpPost("entrar")]
-    public async Task<ActionResult> Logar([FromBody] LoginModel model)
+    public async Task<ActionResult> Logar([FromBody] ContaLoginModel model)
     {
-      var resultado = await _signInManager.PasswordSignInAsync(model.Email, model.Senha, isPersistent: true, lockoutOnFailure: true);
-      if (resultado.Succeeded)
+      if (await _contaServico.Logar(model))
         return Ok(new OkResponse("Usuário logado com sucesso", token: await _jwtServico.GerarToken(model.Email)));
 
       return NotFound(new NotFoundResponse("Usuário ou senha inválidos"));

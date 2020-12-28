@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Leandro.Estudos.CursosOnline.Api.Models
 {
-  public class RegistroModel
+  public class ContaRegistroModel
   {
     [Required]
     [EmailAddress(ErrorMessage = "O e-mail informado é inválido")]
