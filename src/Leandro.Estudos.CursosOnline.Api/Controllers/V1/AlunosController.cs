@@ -9,11 +9,12 @@ using Leandro.Estudos.CursosOnline.Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Leandro.Estudos.CursosOnline.Api.Controllers
+namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
 {
   [Authorize]
   [ApiController]
-  [Route("api/[controller]")]
+  [ApiVersion("1.0")]
+  [Route("api/v{version:apiVersion}/[controller]")]
   public partial class AlunosController : ControllerBase
   {
     private readonly IAlunoRepositorio _repositorio;

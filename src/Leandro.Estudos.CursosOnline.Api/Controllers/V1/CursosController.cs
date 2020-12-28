@@ -9,11 +9,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static Leandro.Estudos.CursosOnline.Api.Extensoes.CustomAuthorization;
 
-namespace Leandro.Estudos.CursosOnline.Api.Controllers
+namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
 {
   [Authorize]
   [ApiController]
-  [Route("api/[controller]")]
+  [ApiVersion("1.0")]
+  [Route("api/v{version:apiVersion}/[controller]")]
   public partial class CursosController : ControllerBase
   {
     private readonly ICursoRepositorio _repositorio;

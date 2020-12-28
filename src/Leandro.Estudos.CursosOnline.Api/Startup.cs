@@ -29,11 +29,10 @@ namespace Leandro.Estudos.CursosOnline.Api
       services.AddJwtConfig(Configuration);
 
       services.AddControllers()
-              .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+              .AddNewtonsoftJson(x =>
+                 x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
-      services.Configure<ApiBehaviorOptions>(options
-        => options.SuppressModelStateInvalidFilter = true);
-
+      services.AddApiConfig();
       services.AddInjecaoDependenciaConfig();
       services.AddSwaggerConfig();
     }

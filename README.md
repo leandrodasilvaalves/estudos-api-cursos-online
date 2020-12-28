@@ -11,9 +11,9 @@
 - [x] Extrair Identity para servico
 - [x] Fechar endpoints protegidos
 - [x] Utilizar claims nos endpoints 
-- [] Incluir logs e monitoramento
-- [] Versionar API
+- [x] Versionar API
 - [] Melhorar documentação via Swagger
+- [] Incluir logs e monitoramento
 - [] Exception Middleware
 - [] Endpoint para troca de senha
 - [] Endpoint para gerenciar claims

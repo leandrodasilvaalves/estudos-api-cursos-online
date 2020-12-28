@@ -8,12 +8,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Leandro.Estudos.CursosOnline.Api.Controllers
+namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
 {
 
   [ApiController]
   [Authorize]
-  [Route("api")]
+  [ApiVersion("1.0")]
+  [Route("api/v{version:apiVersion}")]
   public class ContaController : ControllerBase
   {
     private readonly IJwtServico _jwtServico;
