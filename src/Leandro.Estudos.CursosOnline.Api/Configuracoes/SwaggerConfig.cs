@@ -10,7 +10,18 @@ namespace Leandro.Estudos.CursosOnline.Api.Configuracoes
     {
       services.AddSwaggerGen(c =>
         {
-          c.SwaggerDoc("v1", new OpenApiInfo { Title = "Leandro.Estudos.CursosOnline.Api", Version = "v1" });
+          c.SwaggerDoc("v1", new OpenApiInfo
+          {
+            Title = "CursosOnline [Api]",
+            Description = "Esta é uma api com cenário simples, cuja finalide é apenas estudos",
+            Contact = new OpenApiContact
+            {
+              Email = "leandro.silva.alves86@gmail.com",
+              Name = "Leandro da Silva Alves",
+              Url = new System.Uri("https://github.com/leandrodasilvaalves/"),
+            },
+            Version = "v1"
+          });
         });
       return services;
     }
