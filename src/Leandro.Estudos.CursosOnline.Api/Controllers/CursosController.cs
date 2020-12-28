@@ -5,10 +5,13 @@ using Leandro.Estudos.CursosOnline.Api.Interfaces;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Repositorios;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos;
 using Leandro.Estudos.CursosOnline.Api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static Leandro.Estudos.CursosOnline.Api.Extensoes.CustomAuthorization;
 
 namespace Leandro.Estudos.CursosOnline.Api.Controllers
 {
+  [Authorize]
   [ApiController]
   [Route("api/[controller]")]
   public partial class CursosController : ControllerBase
@@ -42,6 +45,8 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
       return Ok(new OkResponse(curso));
     }
 
+
+    [ClaimsAuthorize("Curso", "Inc")]
     [HttpPost]
     public async Task<ActionResult> Post([FromBody] Curso curso)
     {
@@ -52,6 +57,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
       return BadRequest(new BadRequestResponse(mensagemErro, _notificador.ObterNotificacoes(), curso));
     }
 
+    [ClaimsAuthorize("Curso", "Edit")]
     [HttpPut("{id:guid}")]
     public async Task<ActionResult> Put(Guid id, [FromBody] Curso curso)
     {
@@ -70,6 +76,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers
       return BadRequest(new BadRequestResponse(mensagemErro, _notificador.ObterNotificacoes(), curso));
     }
 
+    [ClaimsAuthorize("Curso", "Del")]
     [HttpDelete("{id:guid}")]
     public async Task<ActionResult> Delete(Guid id)
     {

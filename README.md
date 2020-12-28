@@ -9,11 +9,12 @@
 - [x] Refatorar construtores Responses
 - [x] Traduzir erros de modelstate
 - [x] Extrair Identity para servico
-- [] Endpoint para troca de senha
-- [] Endpoint para gerenciar claims
-- [] Fechar endpoints protegidos
+- [x] Fechar endpoints protegidos
+- [x] Utilizar claims nos endpoints 
 - [] Incluir logs e monitoramento
 - [] Versionar API
 - [] Melhorar documentação via Swagger
 - [] Exception Middleware
+- [] Endpoint para troca de senha
+- [] Endpoint para gerenciar claims
 - [] Separar aplicacao em camadas (projetos)
