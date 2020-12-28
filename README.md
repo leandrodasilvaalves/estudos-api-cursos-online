@@ -7,7 +7,7 @@
   - [x] NotFoundResonses
 - [x] Incluir validações
 - [x] Refatorar construtores Responses
-- [] Traduzir erros de modelstate
+- [x] Traduzir erros de modelstate
 - [] Extrair Identity para servico
   - [] Endpoint para troca de senha
   - [] Endpoint para gerenciar claims
@@ -16,3 +16,4 @@
 - [] Versionar API
 - [] Melhorar documentação via Swagger
 - [] Exception Middleware
+- [] Separar aplicacao em camadas (projetos)

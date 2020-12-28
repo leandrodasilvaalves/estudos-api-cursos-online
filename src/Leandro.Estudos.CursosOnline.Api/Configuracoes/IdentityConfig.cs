@@ -1,6 +1,7 @@
 using System;
 using Leandro.Estudos.CursosOnline.Api.Contexts;
 using Leandro.Estudos.CursosOnline.Api.Entidades;
+using Leandro.Estudos.CursosOnline.Api.Extensoes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Configuracoes
               options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")))
               .AddIdentity<AppUser, IdentityRole<Guid>>()
               .AddEntityFrameworkStores<IdentityAppContext>()
+              .AddErrorDescriber<IdentityMensagensPortugues>()
               .AddDefaultTokenProviders();
       return services;
     }
