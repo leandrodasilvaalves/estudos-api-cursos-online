@@ -17,7 +17,8 @@
 - [x] [Bug] KissLog logando senhas
 - [x] Validar logs nas demais controllers
 - [x] Manter propriedade token apenas para response de autenticação
-- [] Exception Middleware
+- [x] Exception Middleware
+- [] Healthcheck
 - [] Endpoint para troca de senha
 - [] Endpoint para gerenciar claims
 - [] Separar aplicacao em camadas (projetos)

@@ -9,6 +9,7 @@ using Leandro.Estudos.CursosOnline.Api.Configuracoes;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Leandro.Estudos.CursosOnline.Api.Middlewares;
 
 namespace Leandro.Estudos.CursosOnline.Api
 {
@@ -46,7 +47,7 @@ namespace Leandro.Estudos.CursosOnline.Api
         app.UseDeveloperExceptionPage();
         app.UseSwaggerConfig(provider);
       }
-
+      app.UseExcptionMiddleware();
       app.UseHttpsRedirection();
       app.UseLogConfig(Configuration);
 
