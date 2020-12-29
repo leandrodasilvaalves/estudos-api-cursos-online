@@ -26,12 +26,19 @@ namespace Leandro.Estudos.CursosOnline.Api.Models
         : base(mensagem: "", dados: null, sucesso: true) { }
     public OkResponse(object dados)
         : base(mensagem: "", dados, sucesso: true) { }
-    public OkResponse(string mensagem, object dados = null, string token = null)
-        : base(mensagem, dados, sucesso: true)
+    public OkResponse(string mensagem, object dados)
+        : base(mensagem, dados, sucesso: true) { }
+
+    public override int StatusCode => 200;
+  }
+
+  public class OkAuthResponse : OkResponse
+  {
+    public OkAuthResponse(string mensagem, object dados = null, string token = null)
+        : base(mensagem, dados)
     { this.Token = token; }
 
     public string Token { get; private set; }
-    public override int StatusCode => 200;
   }
 
   public class BadRequestResponse : ResponseModel

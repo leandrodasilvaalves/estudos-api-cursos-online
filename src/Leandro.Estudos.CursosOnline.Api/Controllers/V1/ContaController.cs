@@ -34,7 +34,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
       if (await _contaServico.Registrar(model))
       {
         await _contaServico.Logar(new ContaLoginModel { Email = model.Email, Senha = model.Senha });
-        return Ok(new OkResponse("Usuário registrado com sucesso", token: await _jwtServico.GerarToken(model.Email)));
+        return Ok(new OkAuthResponse("Usuário registrado com sucesso", token: await _jwtServico.GerarToken(model.Email)));
       }
       return BadRequest(new BadRequestResponse("Não foi possível registrar o usuário", _notificador.ObterNotificacoes(), model));
     }
@@ -44,7 +44,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
     public async Task<ActionResult> Logar([FromBody] ContaLoginModel model)
     {
       if (await _contaServico.Logar(model))
-        return Ok(new OkResponse("Usuário logado com sucesso", token: await _jwtServico.GerarToken(model.Email)));
+        return Ok(new OkAuthResponse("Usuário logado com sucesso", token: await _jwtServico.GerarToken(model.Email)));
 
       return NotFound(new NotFoundResponse("Usuário ou senha inválidos"));
     }
