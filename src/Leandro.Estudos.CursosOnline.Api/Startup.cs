@@ -35,6 +35,7 @@ namespace Leandro.Estudos.CursosOnline.Api
 
       services.AddApiConfig();
       services.AddInjecaoDependenciaConfig();
+      services.AddLogConfig();
       services.AddSwaggerConfig();
     }
 
@@ -50,6 +51,7 @@ namespace Leandro.Estudos.CursosOnline.Api
 
       app.UseRouting();
       app.UseIdentityConfig();
+      app.UseLogConfig(Configuration);
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();
