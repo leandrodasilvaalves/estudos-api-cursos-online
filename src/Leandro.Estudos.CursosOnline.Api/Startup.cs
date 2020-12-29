@@ -48,10 +48,10 @@ namespace Leandro.Estudos.CursosOnline.Api
       }
 
       app.UseHttpsRedirection();
+      app.UseLogConfig(Configuration);
 
       app.UseRouting();
       app.UseIdentityConfig();
-      app.UseLogConfig(Configuration);
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();

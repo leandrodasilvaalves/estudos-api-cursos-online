@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using KissLog;
 using Leandro.Estudos.CursosOnline.Api.Entidades;
 using Leandro.Estudos.CursosOnline.Api.Interfaces;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Repositorios;
@@ -20,14 +21,17 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
     private readonly ICursoRepositorio _repositorio;
     private readonly ICursoServico _servico;
     private readonly INotificador _notificador;
+    private readonly ILogger _logger;
 
     public CursosController(ICursoRepositorio repositorio,
                             ICursoServico servico,
-                            INotificador notificador)
+                            INotificador notificador,
+                            ILogger logger)
     {
       _repositorio = repositorio;
       _servico = servico;
       _notificador = notificador;
+      _logger = logger;
     }
 
     [HttpGet]
@@ -35,6 +39,8 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
     {
       var cursos = await _repositorio.Listar();
       if (cursos == null) return NoContent();
+
+      _logger.Info(cursos);
       return Ok(new OkResponse(cursos));
     }
 
@@ -52,9 +58,13 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
     public async Task<ActionResult> Post([FromBody] Curso curso)
     {
       if (await _servico.Incluir(curso))
+      {
+        _logger.Info("O curso foi cadastrado com sucesso");
         return Ok(new OkResponse("Curso cadastrado com sucesso", curso));
+      }
 
       var mensagemErro = "Ocorreram um ou mais erros ao tentar cadastrar o curso";
+      _logger.Warn(mensagemErro);
       return BadRequest(new BadRequestResponse(mensagemErro, _notificador.ObterNotificacoes(), curso));
     }
 

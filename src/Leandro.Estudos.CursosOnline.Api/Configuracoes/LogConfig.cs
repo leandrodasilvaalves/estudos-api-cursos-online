@@ -5,6 +5,8 @@ using KissLog;
 using KissLog.AspNetCore;
 using KissLog.CloudListeners.Auth;
 using KissLog.CloudListeners.RequestLogsListener;
+using KissLog.FlushArgs;
+using Leandro.Estudos.CursosOnline.Api.Extensoes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -20,56 +22,47 @@ namespace Leandro.Estudos.CursosOnline.Api.Configuracoes
     {
       Services = services;
       services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-      services.AddScoped<ILogger>((context) =>
-      {
-        return Logger.Factory.Get();
-      });
+      services.AddScoped<ILogger>(context => Logger.Factory.Get());
       return services;
     }
     public static IApplicationBuilder UseLogConfig(this IApplicationBuilder app, IConfiguration configuration)
     {
       Configuration = configuration;
-      app.UseKissLogMiddleware(options =>
-      {
-        ConfigureKissLog(options);
-      });
+      app.UseKissLogMiddleware(options => ConfigureKissLog(options));
       return app;
     }
-    private static void ConfigureKissLog(IOptionsBuilder options)
+    private static void ConfigureKissLog(IOptionsBuilder optionsBuilder)
     {
-      options.Options
+      optionsBuilder.Options
           .AppendExceptionDetails((Exception ex) =>
           {
             StringBuilder sb = new StringBuilder();
             if (ex is System.NullReferenceException nullRefException)
-            {
               sb.AppendLine("Important: check for null references");
-            }
             return sb.ToString();
           });
 
-      options.InternalLog = (message) =>
+      optionsBuilder.InternalLog = message => Debug.WriteLine(message);
+      optionsBuilder.Options.ShouldLogRequestInputStream((ILogListener listener, FlushLogArgs args) =>
       {
-        Debug.WriteLine(message);
-      };
-
-      RegisterKissLogListeners(options);
+        var currentUrl = args.WebProperties.Request.Url.ToString();
+        return (currentUrl.NotContains("/entrar") && currentUrl.NotContains("/registrar"));
+      });
+      RegisterKissLogListeners(optionsBuilder);
     }
 
-    private static void RegisterKissLogListeners(IOptionsBuilder options)
+    private static void RegisterKissLogListeners(IOptionsBuilder optionsBuilder)
     {
 
       var settings = ConfigSection
                       .GetSection<KissLog>(
                           nameof(KissLog), Services, Configuration);
 
-      options.Listeners.Add(new RequestLogsApiListener(new Application(
+      optionsBuilder.Listeners.Add(
+        new RequestLogsApiListener(new Application(
           settings.OrganizationId,
-          settings.ApplicationId)
-      )
-      {
-        ApiUrl = settings.ApiUrl
-      });
+          settings.ApplicationId))
+        { ApiUrl = settings.ApiUrl });
     }
   }
 

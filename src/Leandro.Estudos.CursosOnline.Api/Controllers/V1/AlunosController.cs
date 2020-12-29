@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using KissLog;
 using Leandro.Estudos.CursosOnline.Api.Entidades;
 using Leandro.Estudos.CursosOnline.Api.Interfaces;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Repositorios;
@@ -21,16 +22,19 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
     private readonly IAlunoServico _servico;
     private readonly ICursoRepositorio _cursoRepositorio;
     private readonly INotificador _notificador;
+    private readonly ILogger _Logger;
 
     public AlunosController(IAlunoRepositorio repositorio,
                             IAlunoServico servico,
                             ICursoRepositorio cursoRepositorio,
-                            INotificador notificador)
+                            INotificador notificador,
+                            ILogger logger)
     {
       _repositorio = repositorio;
       _servico = servico;
       _cursoRepositorio = cursoRepositorio;
       _notificador = notificador;
+      _Logger = logger;
     }
 
     [HttpGet]
@@ -38,6 +42,8 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
     {
       var alunos = await _repositorio.Listar();
       if (alunos == null) return NoContent();
+
+      _Logger.Info(alunos);
       return Ok(new OkResponse(alunos));
     }
 
