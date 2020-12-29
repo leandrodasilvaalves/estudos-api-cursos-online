@@ -13,7 +13,8 @@
 - [x] Utilizar claims nos endpoints 
 - [x] Versionar API
 - [x] Melhorar documentação via Swagger
-- [] Incluir logs e monitoramento
+- [x] Incluir logs e monitoramento (KissLog)
+- [] Manter propriedade token apenas para response de autenticação
 - [] Exception Middleware
 - [] Endpoint para troca de senha
 - [] Endpoint para gerenciar claims

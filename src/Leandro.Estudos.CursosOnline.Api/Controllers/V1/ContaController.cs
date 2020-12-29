@@ -1,11 +1,8 @@
-using System.Linq;
 using System.Threading.Tasks;
-using Leandro.Estudos.CursosOnline.Api.Entidades;
 using Leandro.Estudos.CursosOnline.Api.Interfaces;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos;
 using Leandro.Estudos.CursosOnline.Api.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1

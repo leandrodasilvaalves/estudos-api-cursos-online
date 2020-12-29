@@ -15,8 +15,10 @@ namespace Leandro.Estudos.CursosOnline.Api.Configuracoes
   public static class LogConfig
   {
     public static IConfiguration Configuration { get; private set; }
+    public static IServiceCollection Services { get; private set; }
     public static IServiceCollection AddLogConfig(this IServiceCollection services)
     {
+      Services = services;
       services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
       services.AddScoped<ILogger>((context) =>
       {
@@ -56,13 +58,25 @@ namespace Leandro.Estudos.CursosOnline.Api.Configuracoes
 
     private static void RegisterKissLogListeners(IOptionsBuilder options)
     {
+
+      var settings = ConfigSection
+                      .GetSection<KissLog>(
+                          nameof(KissLog), Services, Configuration);
+
       options.Listeners.Add(new RequestLogsApiListener(new Application(
-          Configuration["KissLog.OrganizationId"],
-          Configuration["KissLog.ApplicationId"])
+          settings.OrganizationId,
+          settings.ApplicationId)
       )
       {
-        ApiUrl = Configuration["KissLog.ApiUrl"]
+        ApiUrl = settings.ApiUrl
       });
     }
+  }
+
+  public class KissLog
+  {
+    public string OrganizationId { get; set; }
+    public string ApplicationId { get; set; }
+    public string ApiUrl { get; set; }
   }
 }

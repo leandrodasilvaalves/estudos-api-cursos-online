@@ -10,10 +10,9 @@ namespace Leandro.Estudos.CursosOnline.Api.Configuracoes
   {
     public static IServiceCollection AddJwtConfig(this IServiceCollection services, IConfiguration configuration)
     {
-      var settingSection = configuration.GetSection(nameof(JwtSettings));
-      services.Configure<JwtSettings>(settingSection);
-
-      var settings = settingSection.Get<JwtSettings>();
+      var settings = ConfigSection
+                      .GetSection<JwtSettings>(
+                          nameof(JwtSettings), services, configuration);
 
       services.AddAuthentication(x =>
       {
