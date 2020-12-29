@@ -16,7 +16,7 @@
 - [x] Incluir logs e monitoramento (KissLog)
 - [x] [Bug] KissLog logando senhas
 - [x] Validar logs nas demais controllers
-- [] Manter propriedade token apenas para response de autenticação
+- [x] Manter propriedade token apenas para response de autenticação
 - [] Exception Middleware
 - [] Endpoint para troca de senha
 - [] Endpoint para gerenciar claims
