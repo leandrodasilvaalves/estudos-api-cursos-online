@@ -19,6 +19,7 @@
 - [x] Manter propriedade token apenas para response de autenticação
 - [x] Exception Middleware
 - [] Healthcheck
+- [] CORs Police
 - [] Endpoint para troca de senha
 - [] Endpoint para gerenciar claims
 - [] Separar aplicacao em camadas (projetos)
