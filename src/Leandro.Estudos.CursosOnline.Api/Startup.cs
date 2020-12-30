@@ -7,9 +7,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Leandro.Estudos.CursosOnline.Api.Configuracoes;
 using Newtonsoft.Json;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Leandro.Estudos.CursosOnline.Api.Middlewares;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using HealthChecks.UI.Client;
+using Leandro.Estudos.CursosOnline.Api.HealthChecks;
+
 
 namespace Leandro.Estudos.CursosOnline.Api
 {
@@ -35,6 +38,10 @@ namespace Leandro.Estudos.CursosOnline.Api
                  x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
       services.AddApiConfig();
+      services.AddHealthChecks()
+      //.AddSqlServer(Configuration.GetConnectionString("DefaultConnection"), name: "SqlServer")
+      .AddCheck("SqlServer", new SqlServerCustomHealthCheck(Configuration.GetConnectionString("DefaultConnection")));
+
       services.AddInjecaoDependenciaConfig();
       services.AddLogConfig();
       services.AddSwaggerConfig();
@@ -56,6 +63,11 @@ namespace Leandro.Estudos.CursosOnline.Api
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();
+        endpoints.MapHealthChecks("/api/hc", new HealthCheckOptions()
+        {
+          Predicate = _ => true,
+          ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+        });
       });
     }
   }

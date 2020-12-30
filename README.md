@@ -18,8 +18,9 @@
 - [x] Validar logs nas demais controllers
 - [x] Manter propriedade token apenas para response de autenticação
 - [x] Exception Middleware
-- [] Healthcheck
+- [x] Healthcheck
 - [] CORs Police
+- [] Upload de imagem
 - [] Endpoint para troca de senha
 - [] Endpoint para gerenciar claims
 - [] Separar aplicacao em camadas (projetos)
