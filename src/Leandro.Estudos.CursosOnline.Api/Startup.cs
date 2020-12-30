@@ -38,10 +38,7 @@ namespace Leandro.Estudos.CursosOnline.Api
                  x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
       services.AddApiConfig();
-      services.AddHealthChecks()
-      //.AddSqlServer(Configuration.GetConnectionString("DefaultConnection"), name: "SqlServer")
-      .AddCheck("SqlServer", new SqlServerCustomHealthCheck(Configuration.GetConnectionString("DefaultConnection")));
-
+      services.AddHealthCheckConfig(Configuration);
       services.AddInjecaoDependenciaConfig();
       services.AddLogConfig();
       services.AddSwaggerConfig();
@@ -63,11 +60,7 @@ namespace Leandro.Estudos.CursosOnline.Api
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();
-        endpoints.MapHealthChecks("/api/hc", new HealthCheckOptions()
-        {
-          Predicate = _ => true,
-          ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-        });
+        endpoints.MapHealthChecksControllers();
       });
     }
   }
