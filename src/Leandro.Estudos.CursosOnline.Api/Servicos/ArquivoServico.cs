@@ -7,13 +7,21 @@ using Microsoft.AspNetCore.Http;
 
 namespace Leandro.Estudos.CursosOnline.Api.Servicos
 {
-  public class UploadServico : IUploadServico
+  public class ArquivoServico : IArquivoServico
   {
     private readonly INotificador _notificador;
+    private const string diretorioBase = "wwwroot/assets/images";
 
-    public UploadServico(INotificador notificador)
+    public ArquivoServico(INotificador notificador)
     {
       _notificador = notificador;
+    }
+
+    public void Remover(string arquivo)
+    {
+      var caminhoCompleto = Path.Combine(Directory.GetCurrentDirectory(), diretorioBase, arquivo);
+      if (File.Exists(caminhoCompleto))
+        File.Delete(caminhoCompleto);
     }
 
     public async Task<bool> Upload(IFormFile arquivo, string prefixo)
@@ -24,7 +32,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Servicos
         return false;
       }
 
-      var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/images");
+      var path = Path.Combine(Directory.GetCurrentDirectory(), diretorioBase);
       if (!Directory.Exists(path))
         Directory.CreateDirectory(path);
 

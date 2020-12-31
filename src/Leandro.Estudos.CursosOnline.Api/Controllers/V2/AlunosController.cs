@@ -20,17 +20,17 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V2
     private readonly IAlunoServico _servico;
     private readonly INotificador _notificador;
     private readonly IMapper _mapper;
-    private readonly IUploadServico _uploadServico;
+    private readonly IArquivoServico _arquivoServico;
 
     public AlunosController(IAlunoServico servico,
                             INotificador notificador,
                             IMapper mapper,
-                            IUploadServico uploadServico)
+                            IArquivoServico arquivoServico)
     {
       _servico = servico;
       _notificador = notificador;
       _mapper = mapper;
-      _uploadServico = uploadServico;
+      _arquivoServico = arquivoServico;
     }
 
     [RequestSizeLimit(40000000)]
@@ -41,13 +41,14 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V2
       model.Imagem = prefixo + model.ImagemUpload.FileName;
 
       var mensagemErro = "Ocorreram um ou mais erros ao tentar cadastrar o aluno";
-      if (!await _uploadServico.Upload(model.ImagemUpload, prefixo))
+      if (!await _arquivoServico.Upload(model.ImagemUpload, prefixo))
         return BadRequest(new BadRequestResponse(mensagemErro, _notificador.ObterNotificacoes(), model));
 
       var aluno = _mapper.Map<Aluno>(model);
       if (await _servico.Incluir(aluno))
         return Ok(new OkResponse("Aluno cadastrado com sucesso", aluno));
 
+      _arquivoServico.Remover(model.Imagem);
       return BadRequest(new BadRequestResponse(mensagemErro, _notificador.ObterNotificacoes(), model));
     }
   }

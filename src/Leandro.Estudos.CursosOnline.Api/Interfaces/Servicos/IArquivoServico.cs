@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos
 {
-  public interface IUploadServico
+  public interface IArquivoServico
   {
     Task<bool> Upload(IFormFile arquivo, string prefixo);
+    void Remover(string arquivo);
   }
 }

@@ -25,6 +25,7 @@
   - [x] Extrair upload para servico
   - [] Atualizacao do aluno
   - [] Upload com base64
+  - [x] Remover imagem em caso de erro
 - [x] AutoMapper
   - [x] Mapear imagem aluno com url completa
   - [x] Normalizar cadastro de aluno v1
