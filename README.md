@@ -21,6 +21,7 @@
 - [x] Healthcheck
 - [x] CORs Police
 - [] Upload de imagem
+- [] AutoMapper
 - [] Endpoint para troca de senha
 - [] Endpoint para gerenciar claims
 - [] Separar aplicacao em camadas (projetos)
