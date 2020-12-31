@@ -48,7 +48,8 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
       if (alunos == null) return NoContent();
 
       _Logger.Info(alunos);
-      return Ok(new OkResponse(alunos));
+      var map = _mapper.Map<IEnumerable<Aluno>>(alunos);
+      return Ok(new OkResponse(map));
     }
 
 
@@ -57,7 +58,8 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
     {
       var aluno = await _repositorio.ObterPorId(id);
       if (aluno == null) return NoContent();
-      return Ok(new OkResponse(aluno));
+      var map = _mapper.Map<Aluno>(aluno);
+      return Ok(new OkResponse(map));
     }
 
     [HttpPost]

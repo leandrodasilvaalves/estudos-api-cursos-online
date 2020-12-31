@@ -1,4 +1,5 @@
 using System;
+using AutoMapper;
 using Leandro.Estudos.CursosOnline.Api.Contexts;
 using Leandro.Estudos.CursosOnline.Api.Interfaces;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Repositorios;
@@ -6,6 +7,7 @@ using Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos;
 using Leandro.Estudos.CursosOnline.Api.Notificacoes;
 using Leandro.Estudos.CursosOnline.Api.Repositorios;
 using Leandro.Estudos.CursosOnline.Api.Servicos;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -27,6 +29,10 @@ namespace Leandro.Estudos.CursosOnline.Api.Configuracoes
     {
       services.AddScoped<INotificador, Notificador>();
       services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+      services.AddSingleton(provider => new MapperConfiguration(cfg =>
+      {
+        cfg.AddProfile(new AutoMapperConfig(provider.GetService<IHttpContextAccessor>()));
+      }).CreateMapper());
     }
 
     private static void ConfigurarContextos(IServiceCollection services)

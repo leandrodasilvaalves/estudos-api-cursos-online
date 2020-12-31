@@ -9,7 +9,6 @@ using Leandro.Estudos.CursosOnline.Api.Configuracoes;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Leandro.Estudos.CursosOnline.Api.Middlewares;
-using AutoMapper;
 
 namespace Leandro.Estudos.CursosOnline.Api
 {
@@ -34,13 +33,13 @@ namespace Leandro.Estudos.CursosOnline.Api
               .AddNewtonsoftJson(x =>
                  x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
-      services.AddAutoMapper(typeof(Startup));
       services.AddApiConfig();
       services.AddCorsConfig();
       services.AddHealthCheckConfig(Configuration);
       services.AddInjecaoDependenciaConfig();
       services.AddLogConfig();
       services.AddSwaggerConfig();
+      services.AddDirectoryBrowser();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
@@ -51,10 +50,10 @@ namespace Leandro.Estudos.CursosOnline.Api
         app.UseSwaggerConfig(provider);
       }
       app.UseCorsConfig(env);
+      app.UseStaticFiles();
       app.UseExcptionMiddleware();
       app.UseHttpsRedirection();
       app.UseLogConfig(Configuration);
-
       app.UseRouting();
       app.UseIdentityConfig();
       app.UseEndpoints(endpoints =>

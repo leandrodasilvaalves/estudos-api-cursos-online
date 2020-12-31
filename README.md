@@ -21,8 +21,8 @@
 - [x] Healthcheck
 - [x] CORs Police
 - [x] Upload de imagem
-- [] AutoMapper
-  - [] Mapear imagem aluno com url completa
+- [x] AutoMapper
+  - [x] Mapear imagem aluno com url completa
   - [x] Normalizar cadastro de aluno v1
 - [] Endpoint para troca de senha
 - [] Endpoint para gerenciar claims
