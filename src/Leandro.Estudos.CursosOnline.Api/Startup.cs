@@ -38,6 +38,7 @@ namespace Leandro.Estudos.CursosOnline.Api
                  x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
       services.AddApiConfig();
+      services.AddCorsConfig();
       services.AddHealthCheckConfig(Configuration);
       services.AddInjecaoDependenciaConfig();
       services.AddLogConfig();
@@ -51,6 +52,7 @@ namespace Leandro.Estudos.CursosOnline.Api
         app.UseDeveloperExceptionPage();
         app.UseSwaggerConfig(provider);
       }
+      app.UseCorsConfig(env);
       app.UseExcptionMiddleware();
       app.UseHttpsRedirection();
       app.UseLogConfig(Configuration);

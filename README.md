@@ -19,7 +19,7 @@
 - [x] Manter propriedade token apenas para response de autenticação
 - [x] Exception Middleware
 - [x] Healthcheck
-- [] CORs Police
+- [x] CORs Police
 - [] Upload de imagem
 - [] Endpoint para troca de senha
 - [] Endpoint para gerenciar claims
