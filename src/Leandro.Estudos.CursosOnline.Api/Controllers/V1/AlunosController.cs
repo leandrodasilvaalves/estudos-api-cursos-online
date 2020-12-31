@@ -65,10 +65,12 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
     {
       var aluno = _mapper.Map<Aluno>(model);
       if (await _servico.Incluir(aluno))
+      {
+        model.Id = aluno.Id;
         return Ok(new OkResponse("Aluno cadastrado com sucesso", model));
+      }
 
       var mensagemErro = "Ocorreram um ou mais erros ao tentar cadastrar o aluno";
-      model.Id = aluno.Id;
       return BadRequest(new BadRequestResponse(mensagemErro, _notificador.ObterNotificacoes(), model));
     }
 

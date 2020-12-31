@@ -23,7 +23,7 @@
 - [x] Upload de imagem
 - [] AutoMapper
   - [] Mapear imagem aluno com url completa
-  - [] Normalizar cadastro de aluno v1
+  - [x] Normalizar cadastro de aluno v1
 - [] Endpoint para troca de senha
 - [] Endpoint para gerenciar claims
 - [] Separar aplicacao em camadas (projetos)
