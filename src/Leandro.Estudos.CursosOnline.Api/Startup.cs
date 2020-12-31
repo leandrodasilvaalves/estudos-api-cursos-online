@@ -9,10 +9,7 @@ using Leandro.Estudos.CursosOnline.Api.Configuracoes;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Leandro.Estudos.CursosOnline.Api.Middlewares;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using HealthChecks.UI.Client;
-using Leandro.Estudos.CursosOnline.Api.HealthChecks;
-
+using AutoMapper;
 
 namespace Leandro.Estudos.CursosOnline.Api
 {
@@ -37,6 +34,7 @@ namespace Leandro.Estudos.CursosOnline.Api
               .AddNewtonsoftJson(x =>
                  x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
+      services.AddAutoMapper(typeof(Startup));
       services.AddApiConfig();
       services.AddCorsConfig();
       services.AddHealthCheckConfig(Configuration);

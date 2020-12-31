@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using AutoMapper;
 using Leandro.Estudos.CursosOnline.Api.Entidades;
 using Leandro.Estudos.CursosOnline.Api.Interfaces;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos;
@@ -18,18 +19,30 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V2
   {
     private readonly IAlunoServico _servico;
     private readonly INotificador _notificador;
+    private readonly IMapper _mapper;
 
-    public AlunosController(IAlunoServico servico, INotificador notificador)
+    public AlunosController(IAlunoServico servico, INotificador notificador, IMapper mapper)
     {
       _servico = servico;
       _notificador = notificador;
+      _mapper = mapper;
     }
 
     [HttpPost]
-    public async Task<ActionResult> Post(AlunoComImagemModel aluno)
+    public async Task<ActionResult> Post(AlunoComImagemModel model)
     {
-      await Upload(aluno.ImagemUpload, Guid.NewGuid() + "_");
-      return Ok();
+      var prefixo = Guid.NewGuid() + "_";
+      model.Imagem = prefixo + model.ImagemUpload.FileName;
+
+      var mensagemErro = "Ocorreram um ou mais erros ao tentar cadastrar o aluno";
+      if (!await Upload(model.ImagemUpload, Guid.NewGuid() + "_"))
+        return BadRequest(new BadRequestResponse(mensagemErro, _notificador.ObterNotificacoes(), model));
+
+      var aluno = _mapper.Map<Aluno>(model);
+      if (await _servico.Incluir(aluno))
+        return Ok(new OkResponse("Aluno cadastrado com sucesso", aluno));
+
+      return BadRequest(new BadRequestResponse(mensagemErro, _notificador.ObterNotificacoes(), model));
     }
 
     private async Task<bool> Upload(IFormFile arquivo, string prefixo)

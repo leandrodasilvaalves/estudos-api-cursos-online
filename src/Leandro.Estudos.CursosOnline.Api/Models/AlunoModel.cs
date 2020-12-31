@@ -8,8 +8,14 @@ namespace Leandro.Estudos.CursosOnline.Api.Models
   public class AlunoComImagemModel
   {
     public string Nome { get; set; }
-
     public string Email { get; set; }
     public IFormFile ImagemUpload { get; set; }
+    internal string Imagem { get; set; }
+  }
+
+  public class AlunoSemImagemModel
+  {
+    public string Nome { get; set; }
+    public string Email { get; set; }
   }
 }

@@ -8,22 +8,25 @@ namespace Leandro.Estudos.CursosOnline.Api.Contexts.Mapeamentos
   {
     public void Configure(EntityTypeBuilder<Aluno> builder)
     {
-        builder.HasKey(a => a.Id);
+      builder.HasKey(a => a.Id);
 
-        builder.Property(a => a.Nome)
-            .HasColumnType("varchar(120)")
-            .IsRequired();
+      builder.Property(a => a.Nome)
+          .HasColumnType("varchar(120)")
+          .IsRequired();
 
-        builder.Property(a => a.Email)
-            .HasColumnType("varchar(150)")
-            .IsRequired();
+      builder.Property(a => a.Email)
+          .HasColumnType("varchar(150)")
+          .IsRequired();
 
-        builder.ToTable("Alunos");
+      builder.Property(a => a.Imagem)
+          .HasColumnType("varchar(200)");
 
-        builder          
-          .HasMany(a => a.Cursos)
-          .WithMany(c => c.Alunos)
-          .UsingEntity(ac => ac.ToTable("CursosAlunos"));
+      builder.ToTable("Alunos");
+
+      builder
+        .HasMany(a => a.Cursos)
+        .WithMany(c => c.Alunos)
+        .UsingEntity(ac => ac.ToTable("CursosAlunos"));
     }
   }
 }

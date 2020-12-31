@@ -4,14 +4,16 @@ using Leandro.Estudos.CursosOnline.Api.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Leandro.Estudos.CursosOnline.Api.Migrations
 {
     [DbContext(typeof(CursoContext))]
-    partial class CursoContextModelSnapshot : ModelSnapshot
+    [Migration("20201231185342_imagem_aluno")]
+    partial class imagem_aluno
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
