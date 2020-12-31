@@ -20,10 +20,15 @@
 - [x] Exception Middleware
 - [x] Healthcheck
 - [x] CORs Police
-- [x] Upload de imagem
+- [] Upload de imagem
+  - [x] Cadastro de Aluno
+  - [] Extrair upload para servico
+  - [] Atualizacao do aluno
+  - [] Upload com base64
 - [x] AutoMapper
   - [x] Mapear imagem aluno com url completa
   - [x] Normalizar cadastro de aluno v1
+- [x] [Bug] As imagems com url estão dando 404
 - [] Endpoint para troca de senha
 - [] Endpoint para gerenciar claims
 - [] Separar aplicacao em camadas (projetos)

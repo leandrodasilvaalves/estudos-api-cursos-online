@@ -35,7 +35,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V2
       model.Imagem = prefixo + model.ImagemUpload.FileName;
 
       var mensagemErro = "Ocorreram um ou mais erros ao tentar cadastrar o aluno";
-      if (!await Upload(model.ImagemUpload, Guid.NewGuid() + "_"))
+      if (!await Upload(model.ImagemUpload, prefixo))
         return BadRequest(new BadRequestResponse(mensagemErro, _notificador.ObterNotificacoes(), model));
 
       var aluno = _mapper.Map<Aluno>(model);
