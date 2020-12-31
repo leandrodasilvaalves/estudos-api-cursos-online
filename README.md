@@ -22,7 +22,7 @@
 - [x] CORs Police
 - [] Upload de imagem
   - [x] Cadastro de Aluno
-  - [] Extrair upload para servico
+  - [x] Extrair upload para servico
   - [] Atualizacao do aluno
   - [] Upload com base64
 - [x] AutoMapper
