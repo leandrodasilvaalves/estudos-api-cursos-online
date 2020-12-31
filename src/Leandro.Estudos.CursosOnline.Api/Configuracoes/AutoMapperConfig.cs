@@ -11,6 +11,8 @@ namespace Leandro.Estudos.CursosOnline.Api.Configuracoes
       CreateMap<AlunoComImagemModel, Aluno>()
         .ForMember(a => a.Imagem, src => src.MapFrom(x => x.Imagem))
         .ReverseMap();
+
+      CreateMap<AlunoSemImagemModel, Aluno>().ReverseMap();
     }
   }
 }

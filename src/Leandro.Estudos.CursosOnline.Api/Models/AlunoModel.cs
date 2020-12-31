@@ -1,3 +1,4 @@
+using System;
 using Leandro.Estudos.CursosOnline.Api.Extensoes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Models
 
   public class AlunoSemImagemModel
   {
+    public Guid Id { get; set; }
     public string Nome { get; set; }
     public string Email { get; set; }
   }

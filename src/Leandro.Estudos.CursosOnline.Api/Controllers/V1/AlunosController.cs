@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using KissLog;
 using Leandro.Estudos.CursosOnline.Api.Entidades;
 using Leandro.Estudos.CursosOnline.Api.Interfaces;
@@ -23,18 +24,21 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
     private readonly ICursoRepositorio _cursoRepositorio;
     private readonly INotificador _notificador;
     private readonly ILogger _Logger;
+    private readonly IMapper _mapper;
 
     public AlunosController(IAlunoRepositorio repositorio,
                             IAlunoServico servico,
                             ICursoRepositorio cursoRepositorio,
                             INotificador notificador,
-                            ILogger logger)
+                            ILogger logger,
+                            IMapper mapper)
     {
       _repositorio = repositorio;
       _servico = servico;
       _cursoRepositorio = cursoRepositorio;
       _notificador = notificador;
       _Logger = logger;
+      _mapper = mapper;
     }
 
     [HttpGet]
@@ -57,30 +61,33 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
     }
 
     [HttpPost]
-    public async Task<ActionResult> Post([FromBody] Aluno aluno)
+    public async Task<ActionResult> Post([FromBody] AlunoSemImagemModel model)
     {
+      var aluno = _mapper.Map<Aluno>(model);
       if (await _servico.Incluir(aluno))
-        return Ok(new OkResponse("Aluno cadastrado com sucesso", aluno));
+        return Ok(new OkResponse("Aluno cadastrado com sucesso", model));
 
       var mensagemErro = "Ocorreram um ou mais erros ao tentar cadastrar o aluno";
-      return BadRequest(new BadRequestResponse(mensagemErro, _notificador.ObterNotificacoes(), aluno));
+      model.Id = aluno.Id;
+      return BadRequest(new BadRequestResponse(mensagemErro, _notificador.ObterNotificacoes(), model));
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<ActionResult> Put(Guid id, [FromBody] Aluno aluno)
+    public async Task<ActionResult> Put(Guid id, [FromBody] AlunoSemImagemModel model)
     {
-      if (id != aluno.Id)
+      if (id != model.Id)
         return BadRequest(new BadRequestResponse("O id da rota precisa ser igual ao id do aluno"));
 
       var alunoBanco = await _repositorio.ObterPorId(id);
       if (alunoBanco == null)
         return NotFound(new NotFoundResponse("Aluno não localizado na base de dados"));
 
+      var aluno = _mapper.Map<Aluno>(model);
       if (await _servico.Editar(aluno))
-        return Ok(new OkResponse("Aluno atualizado com sucesso", aluno));
+        return Ok(new OkResponse("Aluno atualizado com sucesso", model));
 
       var mensagemErro = "Ocorreram um ou mais erros ao tentar editar o aluno";
-      return BadRequest(new BadRequestResponse(mensagemErro, _notificador.ObterNotificacoes(), aluno));
+      return BadRequest(new BadRequestResponse(mensagemErro, _notificador.ObterNotificacoes(), model));
     }
 
     [HttpDelete("{id:guid}")]
