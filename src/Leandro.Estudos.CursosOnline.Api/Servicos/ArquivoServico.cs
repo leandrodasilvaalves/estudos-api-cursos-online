@@ -28,7 +28,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Servicos
     {
       if (arquivo == null || arquivo.Length == 0)
       {
-        _notificador.Handle(new Notificacao("Forneça uma imagem para fazer download"));
+        _notificador.Handle(new Notificacao("Forneça uma imagem para fazer upload"));
         return false;
       }
 

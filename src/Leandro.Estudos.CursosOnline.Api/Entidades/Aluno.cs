@@ -19,5 +19,12 @@ namespace Leandro.Estudos.CursosOnline.Api.Entidades
     {
       Cursos.Add(curso);
     }
+
+    internal void MergearDados(Aluno aluno)
+    {
+      Nome = aluno.Nome;
+      Email = aluno.Email;
+      Imagem = string.IsNullOrEmpty(aluno.Imagem) ? Imagem : aluno.Imagem;
+    }
   }
 }
