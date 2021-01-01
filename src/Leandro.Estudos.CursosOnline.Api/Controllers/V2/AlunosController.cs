@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
 using Leandro.Estudos.CursosOnline.Api.Entidades;
@@ -7,12 +6,12 @@ using Leandro.Estudos.CursosOnline.Api.Interfaces;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Repositorios;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos;
 using Leandro.Estudos.CursosOnline.Api.Models;
-using Leandro.Estudos.CursosOnline.Api.Notificacoes;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Leandro.Estudos.CursosOnline.Api.Controllers.V2
 {
+  [Authorize]
   [ApiController]
   [ApiVersion("2.0")]
   [Route("api/v{version:apiVersion}/[controller]")]
