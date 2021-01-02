@@ -38,6 +38,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Configuracoes
     private static void ConfigurarContextos(IServiceCollection services)
     {
       services.AddScoped(typeof(CursoContext));
+      services.AddScoped(typeof(IdentityAppContext));
     }
 
     public static void ConfigurarServicos(IServiceCollection services)

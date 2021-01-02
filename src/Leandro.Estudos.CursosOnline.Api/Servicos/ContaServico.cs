@@ -1,12 +1,15 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Leandro.Estudos.CursosOnline.Api.Contexts;
 using Leandro.Estudos.CursosOnline.Api.Entidades;
 using Leandro.Estudos.CursosOnline.Api.Interfaces;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos;
 using Leandro.Estudos.CursosOnline.Api.Models;
 using Leandro.Estudos.CursosOnline.Api.Notificacoes;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Leandro.Estudos.CursosOnline.Api.Servicos
 {
@@ -16,13 +19,17 @@ namespace Leandro.Estudos.CursosOnline.Api.Servicos
     private readonly SignInManager<AppUser> _signInManager;
     private readonly INotificador _notificador;
 
+    private readonly IdentityAppContext _contexto;
+
     public ContaServico(UserManager<AppUser> userManager,
                         SignInManager<AppUser> signInManager,
-                        INotificador notificador)
+                        INotificador notificador,
+                        IdentityAppContext contexto)
     {
       _userManager = userManager;
       _signInManager = signInManager;
       _notificador = notificador;
+      _contexto = contexto;
     }
 
     public async Task<bool> Logar(ContaLoginModel conta)
@@ -61,6 +68,19 @@ namespace Leandro.Estudos.CursosOnline.Api.Servicos
     public async Task<AppUser> ObterPorId(Guid id)
     {
       return await _userManager.FindByIdAsync(id.ToString());
+    }
+
+    public async Task<IEnumerable<ContaClaimsModel>> ObterUsuariosComClaims()
+    {
+      return await (from user in _contexto.Users.AsNoTracking()
+                    select
+                      new ContaClaimsModel(
+                              user,
+                              _contexto.UserClaims
+                                .AsNoTracking()
+                                .Where(c => c.UserId == user.Id)
+                                .ToList())
+                    ).ToListAsync();
     }
   }
 }
