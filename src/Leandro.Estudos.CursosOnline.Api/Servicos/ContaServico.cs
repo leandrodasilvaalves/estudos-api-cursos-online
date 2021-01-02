@@ -1,9 +1,11 @@
+using System;
 using System.Threading.Tasks;
 using Leandro.Estudos.CursosOnline.Api.Entidades;
 using Leandro.Estudos.CursosOnline.Api.Interfaces;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos;
 using Leandro.Estudos.CursosOnline.Api.Models;
 using Leandro.Estudos.CursosOnline.Api.Notificacoes;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
 namespace Leandro.Estudos.CursosOnline.Api.Servicos
@@ -43,6 +45,22 @@ namespace Leandro.Estudos.CursosOnline.Api.Servicos
       var usuario = new AppUser { UserName = conta.Email, Email = conta.Email };
       var resultado = await _userManager.CreateAsync(usuario, conta.Senha);
       return resultado.Succeeded;
+    }
+
+    public async Task<bool> TrocarSenha(AppUser usuario, ContaTrocaSenhaModel conta)
+    {
+      var result = await _userManager.ChangePasswordAsync(usuario, conta.SenhaAtual, conta.NovaSenha);
+      if (result.Succeeded)
+        return true;
+
+      foreach (var erro in result.Errors)
+        _notificador.Handle(new Notificacao(erro.Description));
+      return false;
+    }
+
+    public async Task<AppUser> ObterPorId(Guid id)
+    {
+      return await _userManager.FindByIdAsync(id.ToString());
     }
   }
 }

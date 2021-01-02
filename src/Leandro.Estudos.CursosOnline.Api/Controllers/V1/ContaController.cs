@@ -1,4 +1,7 @@
+using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Leandro.Estudos.CursosOnline.Api.Extensoes;
 using Leandro.Estudos.CursosOnline.Api.Interfaces;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos;
 using Leandro.Estudos.CursosOnline.Api.Models;
@@ -47,6 +50,28 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
         return Ok(new OkAuthResponse("Usuário logado com sucesso", token: await _jwtServico.GerarToken(model.Email)));
 
       return NotFound(new NotFoundResponse("Usuário ou senha inválidos"));
+    }
+
+    [HttpPut("trocar-senha/{id:guid}")]
+    public async Task<ActionResult> TrocarSenha(Guid id, [FromBody] ContaTrocaSenhaModel model)
+    {
+      if (id != model.Id)
+        return BadRequest(new BadRequestResponse("O id da rota precisa ser igual ao id do usuário"));
+
+      if (ModelState.IsInvalid())
+        return BadRequest(new BadRequestResponse("Não foi possível atualizar a senha", ModelState, model));
+
+      if (model.SenhaAtual == model.NovaSenha)
+        return BadRequest(new BadRequestResponse("A nova senha precisa ser diferente da senha antiga"));
+
+      var usuario = await _contaServico.ObterPorId(id);
+      if (usuario == null)
+        return NotFound(new NotFoundResponse("Usuário não localizado na base de dados"));
+
+      if (await _contaServico.TrocarSenha(usuario, model))
+        return Ok(new OkResponse("Senha atualizada com sucesso"));
+
+      return BadRequest(new BadRequestResponse("Não foi possível trocar a senha", _notificador.ObterNotificacoes(), model));
     }
   }
 }
