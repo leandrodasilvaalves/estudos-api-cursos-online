@@ -71,6 +71,9 @@ namespace Leandro.Estudos.CursosOnline.Api.Models
   {
     public NotFoundResponse(string mensagem)
       : base(mensagem, dados: null) { }
+
+    public NotFoundResponse(string mensagem, object dados)
+      : base(mensagem, dados) { }
     public override int StatusCode => 404;
 
     public override bool Sucesso => false;

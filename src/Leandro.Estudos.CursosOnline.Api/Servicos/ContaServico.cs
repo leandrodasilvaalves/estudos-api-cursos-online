@@ -10,10 +10,11 @@ using Leandro.Estudos.CursosOnline.Api.Models;
 using Leandro.Estudos.CursosOnline.Api.Notificacoes;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Leandro.Estudos.CursosOnline.Api.Validacoes;
 
 namespace Leandro.Estudos.CursosOnline.Api.Servicos
 {
-  public class ContaServico : IContaServico
+  public class ContaServico : AbstractValidacaoServico<IdentityUserClaim<Guid>>, IContaServico
   {
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
@@ -25,6 +26,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Servicos
                         SignInManager<AppUser> signInManager,
                         INotificador notificador,
                         IdentityAppContext contexto)
+                        : base(notificador)
     {
       _userManager = userManager;
       _signInManager = signInManager;
@@ -81,6 +83,14 @@ namespace Leandro.Estudos.CursosOnline.Api.Servicos
                                 .Where(c => c.UserId == user.Id)
                                 .ToList())
                     ).ToListAsync();
+    }
+
+    public async Task<bool> CadastrarClaim(IdentityUserClaim<Guid> userClaim)
+    {
+      if (!ExecutarValidacao(new UserClaimValidations(), userClaim)) return false;
+      await _contexto.UserClaims.AddAsync(userClaim);
+      await _contexto.SaveChangesAsync();
+      return true;
     }
   }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Leandro.Estudos.CursosOnline.Api.Entidades;
 using Leandro.Estudos.CursosOnline.Api.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos
 {
@@ -13,5 +14,6 @@ namespace Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos
     Task<bool> TrocarSenha(AppUser usuario, ContaTrocaSenhaModel conta);
     Task<AppUser> ObterPorId(Guid id);
     Task<IEnumerable<ContaClaimsModel>> ObterUsuariosComClaims();
+    Task<bool> CadastrarClaim(IdentityUserClaim<Guid> userClaim);
   }
 }

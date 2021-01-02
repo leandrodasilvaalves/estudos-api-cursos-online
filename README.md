@@ -32,7 +32,7 @@
   - [x] Normalizar cadastro de aluno v1
 - [x] Endpoint para troca de senha
 - [] Endpoints para gerenciar claims
-  - [] Listar usário com suas claims
+  - [x] Listar usário com suas claims
   - [] Incluir claims para um usuário
   - [] Remover claims de um usuário
 - [] Separar aplicacao em camadas (projetos)
