@@ -33,7 +33,8 @@
 - [x] Endpoint para troca de senha
 - [] Endpoints para gerenciar claims
   - [x] Listar usário com suas claims
-  - [] Incluir claims para um usuário
+  - [x] Incluir claims para um usuário
+  - [] Atualizar claims de um usuário
   - [] Remover claims de um usuário
 - [] Separar aplicacao em camadas (projetos)
 - [] Melhorar README

@@ -64,7 +64,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
       if (model.SenhaAtual == model.NovaSenha)
         return BadRequest(new BadRequestResponse("A nova senha precisa ser diferente da senha antiga"));
 
-      var usuario = await _contaServico.ObterPorId(id);
+      var usuario = await _contaServico.ObterPorUsuarioId(id);
       if (usuario == null)
         return NotFound(new NotFoundResponse("Usuário não localizado na base de dados"));
 

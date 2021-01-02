@@ -67,7 +67,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Servicos
       return false;
     }
 
-    public async Task<AppUser> ObterPorId(Guid id)
+    public async Task<AppUser> ObterPorUsuarioId(Guid id)
     {
       return await _userManager.FindByIdAsync(id.ToString());
     }
@@ -88,9 +88,26 @@ namespace Leandro.Estudos.CursosOnline.Api.Servicos
     public async Task<bool> CadastrarClaim(IdentityUserClaim<Guid> userClaim)
     {
       if (!ExecutarValidacao(new UserClaimValidations(), userClaim)) return false;
+      if (await UsuarioPossuiClaim(userClaim.UserId, userClaim.ClaimType))
+      {
+        var mensagemErro = "O usuário já possui este claim. Atualize o registro invés de cadastrar um novo";
+        _notificador.Handle(new Notificacao(mensagemErro));
+        return false;
+      }
+
       await _contexto.UserClaims.AddAsync(userClaim);
       await _contexto.SaveChangesAsync();
       return true;
+    }
+
+    public async Task<bool> UsuarioPossuiClaim(Guid userId, string claimType)
+    {
+      return (await _contexto.UserClaims
+                      .AsNoTracking()
+                      .FirstOrDefaultAsync(c =>
+                          c.UserId == userId &&
+                          c.ClaimType == claimType)
+              ) != null;
     }
   }
 }

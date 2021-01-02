@@ -12,8 +12,9 @@ namespace Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos
     Task<bool> Registrar(ContaRegistroModel conta);
     Task<bool> Logar(ContaLoginModel conta);
     Task<bool> TrocarSenha(AppUser usuario, ContaTrocaSenhaModel conta);
-    Task<AppUser> ObterPorId(Guid id);
+    Task<AppUser> ObterPorUsuarioId(Guid id);
     Task<IEnumerable<ContaClaimsModel>> ObterUsuariosComClaims();
     Task<bool> CadastrarClaim(IdentityUserClaim<Guid> userClaim);
+    Task<bool> UsuarioPossuiClaim(Guid userId, string claimType);
   }
 }

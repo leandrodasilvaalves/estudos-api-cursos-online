@@ -33,10 +33,8 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
     [HttpPost("usuarios-claims")]
     public async Task<ActionResult> ObterUsuariosComClaims(IdentityUserClaim<Guid> userClaim)
     {
-      if ((await _contaServico.ObterPorId(userClaim.UserId)) == null)
+      if ((await _contaServico.ObterPorUsuarioId(userClaim.UserId)) == null)
         return NotFound(new NotFoundResponse("Usuário não localizado na base de dados", userClaim));
-
-      //TODO: verficar se já exites esta claim para este usuário
 
       if (await _contaServico.CadastrarClaim(userClaim))
         return Ok(new OkResponse("Claim cadastrada com sucesso", userClaim));
