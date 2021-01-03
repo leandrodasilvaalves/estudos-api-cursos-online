@@ -46,6 +46,9 @@ namespace Leandro.Estudos.CursosOnline.Api.Models
   {
     public BadRequestResponse(string mensagem)
       : base(mensagem, dados: null) { }
+    public BadRequestResponse(string mensagem, List<Notificacao> erros)
+      : base(mensagem, dados: null)
+        => Erros = (from erro in erros select erro.Mensagem).ToList();
     public BadRequestResponse(string mensagem, List<Notificacao> erros, object dados)
       : base(mensagem, dados)
         => Erros = (from erro in erros select erro.Mensagem).ToList();

@@ -18,5 +18,6 @@ namespace Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos
     Task<bool> AtualizarClaim(IdentityUserClaim<Guid> userClaim);
     Task<bool> UsuarioPossuiClaim(Guid userId, string claimType);
     Task<IdentityUserClaim<Guid>> ObterClaimPorId(int id);
+    Task<bool> ExcluirClaimParaUsuario(int id);
   }
 }

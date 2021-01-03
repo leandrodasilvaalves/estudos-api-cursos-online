@@ -121,8 +121,24 @@ namespace Leandro.Estudos.CursosOnline.Api.Servicos
     {
       if (!ExecutarValidacao(new UserClaimValidations(), userClaim)) return false;
       _contexto.Entry(userClaim).State = EntityState.Modified;
-      var savoComSucesso = 1;
-      return (await _contexto.SaveChangesAsync() == savoComSucesso);
+      var salvoComSucesso = 1;
+      return (await _contexto.SaveChangesAsync() == salvoComSucesso);
+    }
+
+    public async Task<bool> ExcluirClaimParaUsuario(int id)
+    {
+      var usuarioClaim = await _contexto.UserClaims
+                                  .AsNoTracking()
+                                  .FirstOrDefaultAsync(c => c.Id == id);
+
+      if (usuarioClaim == null)
+      {
+        _notificador.Handle(new Notificacao("A claim não foi localizada na base de dados"));
+        return false;
+      }
+      _contexto.Remove(usuarioClaim);
+      var excluidoComSucesso = 1;
+      return (await _contexto.SaveChangesAsync() == excluidoComSucesso);
     }
   }
 }

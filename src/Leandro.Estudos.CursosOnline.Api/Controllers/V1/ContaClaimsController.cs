@@ -64,5 +64,17 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
           _notificador.ObterNotificacoes(),
           userClaim));
     }
+
+    [HttpDelete("usuarios-claims/{idClaim:int}")]
+    public async Task<ActionResult> ExcluirClaimsParaUsuario(int idClaim)
+    {
+      if (await _contaServico.ExcluirClaimParaUsuario(idClaim))
+        return Ok(new OkResponse("Claim atualizada com sucesso"));
+
+      return BadRequest(
+        new BadRequestResponse(
+          "Não foi possível atualizar a claim",
+          _notificador.ObterNotificacoes()));
+    }
   }
 }

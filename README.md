@@ -31,10 +31,10 @@
   - [x] Mapear imagem aluno com url completa
   - [x] Normalizar cadastro de aluno v1
 - [x] Endpoint para troca de senha
-- [] Endpoints para gerenciar claims
+- [x] Endpoints para gerenciar claims
   - [x] Listar usário com suas claims
   - [x] Incluir claims para um usuário
   - [x] Atualizar claims de um usuário
-  - [] Remover claims de um usuário
+  - [x] Remover claims de um usuário
 - [] Separar aplicacao em camadas (projetos)
 - [] Melhorar README
