@@ -85,7 +85,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Servicos
                     ).ToListAsync();
     }
 
-    public async Task<bool> CadastrarClaim(IdentityUserClaim<Guid> userClaim)
+    public async Task<bool> CadastrarClaimParaUsuario(IdentityUserClaim<Guid> userClaim)
     {
       if (!ExecutarValidacao(new UserClaimValidations(), userClaim)) return false;
       if (await UsuarioPossuiClaim(userClaim.UserId, userClaim.ClaimType))
@@ -117,7 +117,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Servicos
                         .FirstOrDefaultAsync(c => c.Id == id);
     }
 
-    public async Task<bool> AtualizarClaim(IdentityUserClaim<Guid> userClaim)
+    public async Task<bool> AtualizarClaimParaUsuario(IdentityUserClaim<Guid> userClaim)
     {
       if (!ExecutarValidacao(new UserClaimValidations(), userClaim)) return false;
       _contexto.Entry(userClaim).State = EntityState.Modified;

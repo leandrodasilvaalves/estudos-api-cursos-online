@@ -3,13 +3,14 @@ using System.Threading.Tasks;
 using Leandro.Estudos.CursosOnline.Api.Interfaces;
 using Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos;
 using Leandro.Estudos.CursosOnline.Api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
 {
   [ApiController]
-  //[Authorize]
+  [Authorize]
   [ApiVersion("1.0")]
   [Route("api/v{version:apiVersion}")]
   public class ContaClaimsController : ControllerBase
@@ -36,7 +37,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
       if ((await _contaServico.ObterPorUsuarioId(userClaim.UserId)) == null)
         return NotFound(new NotFoundResponse("Usuário não localizado na base de dados", userClaim));
 
-      if (await _contaServico.CadastrarClaim(userClaim))
+      if (await _contaServico.CadastrarClaimParaUsuario(userClaim))
         return Ok(new OkResponse("Claim cadastrada com sucesso", userClaim));
 
       return BadRequest(
@@ -55,7 +56,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
       if ((await _contaServico.ObterClaimPorId(userClaim.Id)) == null)
         return NotFound(new NotFoundResponse("Claim não localizada na base de dados", userClaim));
 
-      if (await _contaServico.AtualizarClaim(userClaim))
+      if (await _contaServico.AtualizarClaimParaUsuario(userClaim))
         return Ok(new OkResponse("Claim atualizada com sucesso", userClaim));
 
       return BadRequest(

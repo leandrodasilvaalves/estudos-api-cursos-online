@@ -1,4 +1,41 @@
-# Itens a fazer
+# Cursos Online 
+
+Esta é uma api exemplo criada para consolidar os estudos  e conceitos aprendidos, bem como servir de exemplo e referencias para implementações futras.
+
+### Pré-requisitos
+
+```
+Windows, Linux ou Mac
+Vscode
+Git
+```
+
+### Instalando
+
+Execute os comandos abaixo:
+
+```bash
+dotnet restore
+dotnet ef database update -v
+```
+
+## Built With
+
+* [.Net5](https://dotnet.microsoft.com/download/dotnet/5.0)
+* [EntityframeworkCore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore)
+* [SqlServer](https://www.microsoft.com/pt-br/sql-server/sql-server-downloads)
+* [KissLog](https://kisslog.net/)
+* [FluentValidation](https://fluentvalidation.net/)
+* [Automapper](https://automapper.org/)
+* [JWT](https://jwt.io/)
+
+
+## Autor
+
+* **Leandro Alves** -  [Github](https://github.com/leandrodasilvaalves)
+
+
+# Demandas
 - [x] Incluir JWT
 - [x] Refatorar servico JWT
 - [x] Padronizar responses
@@ -37,4 +74,3 @@
   - [x] Atualizar claims de um usuário
   - [x] Remover claims de um usuário
 - [] Separar aplicacao em camadas (projetos)
-- [] Melhorar README

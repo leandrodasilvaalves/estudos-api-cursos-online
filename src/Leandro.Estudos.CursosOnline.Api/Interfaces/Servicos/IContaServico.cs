@@ -14,8 +14,8 @@ namespace Leandro.Estudos.CursosOnline.Api.Interfaces.Servicos
     Task<bool> TrocarSenha(AppUser usuario, ContaTrocaSenhaModel conta);
     Task<AppUser> ObterPorUsuarioId(Guid id);
     Task<IEnumerable<ContaClaimsModel>> ObterUsuariosComClaims();
-    Task<bool> CadastrarClaim(IdentityUserClaim<Guid> userClaim);
-    Task<bool> AtualizarClaim(IdentityUserClaim<Guid> userClaim);
+    Task<bool> CadastrarClaimParaUsuario(IdentityUserClaim<Guid> userClaim);
+    Task<bool> AtualizarClaimParaUsuario(IdentityUserClaim<Guid> userClaim);
     Task<bool> UsuarioPossuiClaim(Guid userId, string claimType);
     Task<IdentityUserClaim<Guid>> ObterClaimPorId(int id);
     Task<bool> ExcluirClaimParaUsuario(int id);
