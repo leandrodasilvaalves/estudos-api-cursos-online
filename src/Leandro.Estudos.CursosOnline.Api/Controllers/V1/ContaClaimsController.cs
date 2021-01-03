@@ -31,7 +31,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
     }
 
     [HttpPost("usuarios-claims")]
-    public async Task<ActionResult> ObterUsuariosComClaims(IdentityUserClaim<Guid> userClaim)
+    public async Task<ActionResult> IncluirClaimsParaUsuario([FromBody] IdentityUserClaim<Guid> userClaim)
     {
       if ((await _contaServico.ObterPorUsuarioId(userClaim.UserId)) == null)
         return NotFound(new NotFoundResponse("Usuário não localizado na base de dados", userClaim));
@@ -42,6 +42,25 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
       return BadRequest(
         new BadRequestResponse(
           "Não foi possível cadastrar a claim",
+          _notificador.ObterNotificacoes(),
+          userClaim));
+    }
+
+    [HttpPut("usuarios-claims/{idClaim:int}")]
+    public async Task<ActionResult> AtualizarClaimsParaUsuario(int idClaim, [FromBody] IdentityUserClaim<Guid> userClaim)
+    {
+      if (idClaim != userClaim.Id)
+        return BadRequest(new BadRequestResponse("O id da rota precisa ser igual ao id da claim"));
+
+      if ((await _contaServico.ObterClaimPorId(userClaim.Id)) == null)
+        return NotFound(new NotFoundResponse("Claim não localizada na base de dados", userClaim));
+
+      if (await _contaServico.AtualizarClaim(userClaim))
+        return Ok(new OkResponse("Claim atualizada com sucesso", userClaim));
+
+      return BadRequest(
+        new BadRequestResponse(
+          "Não foi possível atualizar a claim",
           _notificador.ObterNotificacoes(),
           userClaim));
     }

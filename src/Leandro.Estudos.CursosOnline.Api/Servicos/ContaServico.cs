@@ -109,5 +109,20 @@ namespace Leandro.Estudos.CursosOnline.Api.Servicos
                           c.ClaimType == claimType)
               ) != null;
     }
+
+    public async Task<IdentityUserClaim<Guid>> ObterClaimPorId(int id)
+    {
+      return await _contexto.UserClaims
+                        .AsNoTracking()
+                        .FirstOrDefaultAsync(c => c.Id == id);
+    }
+
+    public async Task<bool> AtualizarClaim(IdentityUserClaim<Guid> userClaim)
+    {
+      if (!ExecutarValidacao(new UserClaimValidations(), userClaim)) return false;
+      _contexto.Entry(userClaim).State = EntityState.Modified;
+      var savoComSucesso = 1;
+      return (await _contexto.SaveChangesAsync() == savoComSucesso);
+    }
   }
 }

@@ -34,7 +34,7 @@
 - [] Endpoints para gerenciar claims
   - [x] Listar usário com suas claims
   - [x] Incluir claims para um usuário
-  - [] Atualizar claims de um usuário
+  - [x] Atualizar claims de um usuário
   - [] Remover claims de um usuário
 - [] Separar aplicacao em camadas (projetos)
 - [] Melhorar README
