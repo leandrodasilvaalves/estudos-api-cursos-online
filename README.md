@@ -73,4 +73,3 @@ dotnet ef database update -v
   - [x] Incluir claims para um usuário
   - [x] Atualizar claims de um usuário
   - [x] Remover claims de um usuário
-- [] Separar aplicacao em camadas (projetos)

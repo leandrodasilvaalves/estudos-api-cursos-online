@@ -1,0 +1,621 @@
+{
+	"info": {
+		"_postman_id": "8b58cb88-3e00-4006-98e2-9667d7e5ed75",
+		"name": "Leandro.CursosOnline.API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Alunos",
+			"item": [
+				{
+					"name": "V2",
+					"item": [
+						{
+							"name": "Criar Aluno",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "aluno",
+											"value": "{\n  \"nome\": \"Cicrano Teste\",\n  \"email\": \"teste2@email.com\"\n}",
+											"type": "text"
+										},
+										{
+											"key": "ImagemUpload",
+											"type": "file",
+											"src": "/D:/Imagens/github-dark-mode.jpg"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:5001/api/v2/alunos",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"api",
+										"v2",
+										"alunos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar Aluno",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "aluno",
+											"value": "{\n  \"id\"  : \"f73393ae-7653-417f-93f3-908f6b9de70f\",\n  \"nome\": \"Cicrano Teste\",\n  \"email\": \"teste2@email.com\"\n}\n",
+											"type": "text"
+										},
+										{
+											"key": "ImagemUpload",
+											"type": "file",
+											"src": "/D:/Imagens/Meire-Le/foto-3x4-meire.jpg"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:5001/api/v2/alunos/f73393ae-7653-417f-93f3-908f6b9de70f",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"api",
+										"v2",
+										"alunos",
+										"f73393ae-7653-417f-93f3-908f6b9de70f"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Todos Alunos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/alunos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"alunos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Aluno por Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/alunos/a9ec8e58-66d2-4a55-b8d2-0d9bf27880fb",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"alunos",
+								"a9ec8e58-66d2-4a55-b8d2-0d9bf27880fb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Aluno Com Cursos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/alunos/17749231-e5a7-4995-b00a-2ef6cbc2a1f8/Cursos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"alunos",
+								"17749231-e5a7-4995-b00a-2ef6cbc2a1f8",
+								"Cursos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Aluno",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Cicrano Teste\",\r\n  \"email\": \"teste14@email.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/alunos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"alunos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Aluno",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\"  : \"17749231-e5a7-4995-b00a-2ef6cbc2a1f8\",\r\n  \"nome\": \"Leandro Alves\",\r\n  \"email\": \"leandro.alves@email.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/alunos/17749231-e5a7-4995-b00a-2ef6cbc2a1f8",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"alunos",
+								"17749231-e5a7-4995-b00a-2ef6cbc2a1f8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Matricular em Curso",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/alunos/17749231-e5a7-4995-b00a-2ef6cbc2a1f8/matricular/3fa85f64-5717-4562-b3fc-2c963f66afa6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"alunos",
+								"17749231-e5a7-4995-b00a-2ef6cbc2a1f8",
+								"matricular",
+								"3fa85f64-5717-4562-b3fc-2c963f66afa6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Aluno",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\"  : \"17749231-e5a7-4995-b00a-2ef6cbc2a1f8\",\r\n  \"nome\": \"Leandro da Silva Alves\",\r\n  \"email\": \"leandro.alves@email.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/alunos/5ebe62cc-b614-41a9-8e4c-84a81e59b14e",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"alunos",
+								"5ebe62cc-b614-41a9-8e4c-84a81e59b14e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cursos",
+			"item": [
+				{
+					"name": "Todos Cursos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cursos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cursos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Curso por Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cursos/3fa85f64-5717-4562-b3fc-2c963f66afa6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cursos",
+								"3fa85f64-5717-4562-b3fc-2c963f66afa6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Curso com Alunos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cursos/3fa85f64-5717-4562-b3fc-2c963f66afa6/alunos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cursos",
+								"3fa85f64-5717-4562-b3fc-2c963f66afa6",
+								"alunos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Curso",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"NodeJS - Para iniciantes IV\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/cursos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cursos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Curso",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"NodeJS - Para iniciantes I\",\r\n    \"id\": \"fcdf2b42-033d-4103-a0a1-5344649db3f1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/cursos/fcdf2b42-033d-4103-a0a1-5344649db3f1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cursos",
+								"fcdf2b42-033d-4103-a0a1-5344649db3f1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Curso",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\"  : \"17749231-e5a7-4995-b00a-2ef6cbc2a1f8\",\r\n  \"nome\": \"Leandro da Silva Alves\",\r\n  \"email\": \"leandro.alves@email.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/cursos/4134e64f-53b4-4605-ad05-4e436b7370cd",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cursos",
+								"4134e64f-53b4-4605-ad05-4e436b7370cd"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Registrar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"teste7@teste.com\",\r\n  \"senha\": \"123@Mudar\",\r\n  \"confirmaSenha\": \"123@Mudar\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/registrar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"registrar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Trocar Senha",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"c0d782ea-0353-4d58-c0ea-08d8a9d8e442\",\r\n  \"senhaAtual\": \"123@Mudarabc\",\r\n  \"novaSenha\": \"123@Mudar\",\r\n  \"confirmaNovaSenha\": \"123@Mudar\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/trocar-senha/c0d782ea-0353-4d58-c0ea-08d8a9d8e442",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"trocar-senha",
+								"c0d782ea-0353-4d58-c0ea-08d8a9d8e442"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Entrar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"leandro@teste.com\",\r\n  \"senha\": \"123@Mudar\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/entrar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"entrar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obter usuários com claims",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/usuarios-claims",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios-claims"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Claim",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"c887b7c4-3d50-4364-6981-08d8af66cc5c\",\r\n    \"claimType\": \"Conta\",\r\n    \"claimValue\" : \"Inc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/usuarios-claims",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios-claims"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Claim",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 4,\r\n    \"userId\": \"c887b7c4-3d50-4364-6981-08d8af66cc5c\",\r\n    \"claimType\": \"Conta\",\r\n    \"claimValue\" : \"Inc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/usuarios-claims/4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios-claims",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Claim",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/usuarios-claims/4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios-claims",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDdXJzbyI6IkluYyxFZGl0Iiwic3ViIjoiYzBkNzgyZWEtMDM1My00ZDU4LWMwZWEtMDhkOGE5ZDhlNDQyIiwiZW1haWwiOiJsZWFuZHJvQHRlc3RlLmNvbSIsImp0aSI6ImU2MDg3NjE2LTIwMzAtNGJhNC05ODJmLTJhNGZhM2UyNWY4NCIsIm5iZiI6MTYwOTYwNTQ0MiwiaWF0IjoxNjA5NjA1NDQyLCJleHAiOjE2MDk2MTI2NDIsImlzcyI6Ik1ldVNpc3RlbWEiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCJ9.IsZwZZpDHgNW8yPoNylbKQpTLGvYLO6BT_-1F9m-nYQ",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://localhost:5001/api/v1"
+		}
+	]
+}
