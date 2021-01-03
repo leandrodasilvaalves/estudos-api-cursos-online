@@ -6,6 +6,7 @@ using Leandro.Estudos.CursosOnline.Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using static Leandro.Estudos.CursosOnline.Api.Extensoes.CustomAuthorization;
 
 namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
 {
@@ -24,6 +25,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
       _notificador = notificador;
     }
 
+    [ClaimsAuthorize("Claims", "Ler")]
     [HttpGet("usuarios-claims")]
     public async Task<ActionResult> ObterUsuariosComClaims()
     {
@@ -31,6 +33,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
       return Ok(new OkResponse(usuariosClaims));
     }
 
+    [ClaimsAuthorize("Claims", "Inc")]
     [HttpPost("usuarios-claims")]
     public async Task<ActionResult> IncluirClaimsParaUsuario([FromBody] IdentityUserClaim<Guid> userClaim)
     {
@@ -47,6 +50,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
           userClaim));
     }
 
+    [ClaimsAuthorize("Claims", "Edit")]
     [HttpPut("usuarios-claims/{idClaim:int}")]
     public async Task<ActionResult> AtualizarClaimsParaUsuario(int idClaim, [FromBody] IdentityUserClaim<Guid> userClaim)
     {
@@ -66,6 +70,7 @@ namespace Leandro.Estudos.CursosOnline.Api.Controllers.V1
           userClaim));
     }
 
+    [ClaimsAuthorize("Claims", "Del")]
     [HttpDelete("usuarios-claims/{idClaim:int}")]
     public async Task<ActionResult> ExcluirClaimsParaUsuario(int idClaim)
     {
